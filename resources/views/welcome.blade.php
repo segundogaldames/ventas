@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 @section('content')
     <div class="container my-5">
         <div class="p-5 text-center bg-body-tertiary rounded-3">

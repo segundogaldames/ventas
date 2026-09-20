@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 4',
+    'title' => 'Sistema de Ventas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Sistema de Ventas</b>',
     'logo_img' => 'vendor/adminlte/dist/assets/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image opacity-75 shadow',
     'logo_img_xl' => null,
@@ -826,6 +826,12 @@ return [
                 [
                     'text' => 'Empresas',
                     'url' => '#',
+                    'icon' => 'bi bi-buildings-fill'
+                ],
+                [
+                    'text' => 'Paises',
+                    'route' => 'paises.index',
+                    'icon' => 'bi bi-globe-americas-fill'
                 ],
                 [
                     'text' => 'level_one',

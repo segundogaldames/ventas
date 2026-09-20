@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pais;
 use Illuminate\Http\Request;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class PaisController extends Controller
 {
@@ -12,7 +13,9 @@ class PaisController extends Controller
      */
     public function index()
     {
-        //
+        $paises = Pais::all();
+
+        return view('paises.index', compact('paises'));
     }
 
     /**
@@ -20,7 +23,7 @@ class PaisController extends Controller
      */
     public function create()
     {
-        //
+        return view('paises.create');
     }
 
     /**
@@ -28,7 +31,13 @@ class PaisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => ['required', 'unique:paises', 'min:3', 'max:255']
+        ]);
+
+        Pais::create($validated);
+
+        return redirect()->route('paises.index')->with('success', 'El país se ha registrado correctamente');
     }
 
     /**
@@ -36,7 +45,7 @@ class PaisController extends Controller
      */
     public function show(Pais $pais)
     {
-        //
+        return view('paises.show', compact('pais'));
     }
 
     /**
@@ -44,7 +53,7 @@ class PaisController extends Controller
      */
     public function edit(Pais $pais)
     {
-        //
+        return view('paises.edit', compact('pais'));
     }
 
     /**
@@ -52,7 +61,13 @@ class PaisController extends Controller
      */
     public function update(Request $request, Pais $pais)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => ['required', 'unique:paises,nombre,' . $pais->id, 'min:5', 'max:255']
+        ]);
+
+        $pais->update($validated);
+
+        return redirect()->route('paises.show', $pais)->with('success', 'El país se ha modificado correctamente');
     }
 
     /**
@@ -60,6 +75,12 @@ class PaisController extends Controller
      */
     public function destroy(Pais $pais)
     {
-        //
+        if ($pais->provincias()->exists()) {
+            return redirect()->route('paises.index')->with('error', 'No se puede eliminar este país. Tiene provincias asociadas');
+        }
+
+        $pais->delete();
+
+        return redirect()->route('paises.index')->with('success', 'El país se ha eliminado correctamente');
     }
 }
