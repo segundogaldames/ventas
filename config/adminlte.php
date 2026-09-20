@@ -439,8 +439,21 @@ return [
     'rtl' => [
         'enabled' => null,
         'locales' => [
-            'ar', 'arc', 'ckb', 'dv', 'fa', 'ha', 'he', 'khw', 'ks', 'ps',
-            'sd', 'ug', 'ur', 'uz-AF', 'yi',
+            'ar',
+            'arc',
+            'ckb',
+            'dv',
+            'fa',
+            'ha',
+            'he',
+            'khw',
+            'ks',
+            'ps',
+            'sd',
+            'ug',
+            'ur',
+            'uz-AF',
+            'yi',
         ],
     ],
 
@@ -786,11 +799,14 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'bi bi-file-earmark',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'Roles',
+            'url' => 'admin/blog',
+            'icon' => 'bi bi-person',
+        ],
+        [
+            'text' => 'Usuarios',
+            'url' => 'admin/blog',
+            'icon' => 'bi bi-person',
         ],
         ['header' => 'account_settings'],
         [
@@ -804,11 +820,11 @@ return [
             'icon' => 'bi bi-lock',
         ],
         [
-            'text' => 'multilevel',
+            'text' => 'Empresas',
             'icon' => 'bi bi-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Empresas',
                     'url' => '#',
                 ],
                 [
