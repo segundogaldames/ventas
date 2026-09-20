@@ -21,6 +21,11 @@ class Empresa extends Model
         return $this->hasMany(Impuesto::class);
     }
 
+    public function monedas()
+    {
+        return $this->hasMany(Moneda::class);
+    }
+
     public function telefonos()
     {
         return $this->hasMany(Telefono::class);
