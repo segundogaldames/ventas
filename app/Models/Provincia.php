@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Provincia extends Model
 {
-    //
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class);
+    }
+
+    public function ciudades()
+    {
+        return $this->hasMany(Ciudad::class);
+    }
 }
