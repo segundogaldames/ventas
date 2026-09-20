@@ -30,4 +30,9 @@ class Empresa extends Model
     {
         return $this->hasMany(Telefono::class);
     }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'empresa_user');
+    }
 }
