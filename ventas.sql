@@ -37,7 +37,6 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1790555869);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +81,7 @@ CREATE TABLE `ciudades` (
   PRIMARY KEY (`id`),
   KEY `ciudades_provincia_id_foreign` (`provincia_id`),
   CONSTRAINT `ciudades_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +90,7 @@ CREATE TABLE `ciudades` (
 
 LOCK TABLES `ciudades` WRITE;
 /*!40000 ALTER TABLE `ciudades` DISABLE KEYS */;
-INSERT INTO `ciudades` VALUES (1,'Santiago',1,'2026-09-27 01:18:29','2026-09-27 01:28:37');
+INSERT INTO `ciudades` VALUES (1,'Santiago',1,'2026-09-27 01:18:29','2026-09-27 01:28:37'),(4,'San Miguel',1,'2026-09-27 17:38:39','2026-09-27 17:38:39'),(5,'Copiapó',3,'2026-09-27 17:39:29','2026-09-27 17:39:29');
 /*!40000 ALTER TABLE `ciudades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +107,7 @@ CREATE TABLE `empresa_tipos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +116,7 @@ CREATE TABLE `empresa_tipos` (
 
 LOCK TABLES `empresa_tipos` WRITE;
 /*!40000 ALTER TABLE `empresa_tipos` DISABLE KEYS */;
-INSERT INTO `empresa_tipos` VALUES (1,'Gran Empresa','2026-09-27 02:21:28','2026-09-27 02:21:28');
+INSERT INTO `empresa_tipos` VALUES (1,'Gran Empresa','2026-09-27 02:21:28','2026-09-27 02:21:28'),(4,'Mediana Empresa','2026-09-27 21:42:31','2026-09-27 21:42:31'),(5,'Pyme','2026-09-27 21:42:40','2026-09-27 21:42:40');
 /*!40000 ALTER TABLE `empresa_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +175,7 @@ CREATE TABLE `empresas` (
   KEY `empresas_empresa_tipo_id_foreign` (`empresa_tipo_id`),
   CONSTRAINT `empresas_ciudad_id_foreign` FOREIGN KEY (`ciudad_id`) REFERENCES `ciudades` (`id`),
   CONSTRAINT `empresas_empresa_tipo_id_foreign` FOREIGN KEY (`empresa_tipo_id`) REFERENCES `empresa_tipos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,6 +184,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+INSERT INTO `empresas` VALUES (2,'11983017-6','Profesor Galdames','cursos@profesorgaldames.cl','https://profesorgaldames.cl','REmbrand 1014','1235678','logos/NDSr5Kwjxi8G5G5wVx6w0LTsEzNBvCbquWwjWN24.jpg',1,1,'2026-09-27 21:24:39','2026-09-27 21:24:39');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -506,7 +506,7 @@ CREATE TABLE `provincias` (
   PRIMARY KEY (`id`),
   KEY `provincias_pais_id_foreign` (`pais_id`),
   CONSTRAINT `provincias_pais_id_foreign` FOREIGN KEY (`pais_id`) REFERENCES `paises` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -515,7 +515,7 @@ CREATE TABLE `provincias` (
 
 LOCK TABLES `provincias` WRITE;
 /*!40000 ALTER TABLE `provincias` DISABLE KEYS */;
-INSERT INTO `provincias` VALUES (1,'Región Metropolitana De Santiago',1,'2026-09-20 23:39:39','2026-09-20 23:54:14');
+INSERT INTO `provincias` VALUES (1,'Región Metropolitana De Santiago',1,'2026-09-20 23:39:39','2026-09-20 23:54:14'),(3,'Región De Atacama',1,'2026-09-27 14:50:51','2026-09-27 14:50:51');
 /*!40000 ALTER TABLE `provincias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -598,7 +598,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('zyN0vb5ndVw8omBFYcZSc8jeUqPWYrwVBq6m1YE4',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJKOXBhblRVWVFoSUpkSDlzS2pyRDRwb1hQdlM3MnpCZXoyQnJBblBBIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9lbXByZXNhcyIsInJvdXRlIjoiZW1wcmVzYXMuaW5kZXgifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTA0Njk0Njl9fQ==',1790478830);
+INSERT INTO `sessions` VALUES ('RRlGCpW9jI1ZWFH0be9LtYF3uHDnGOvXpXKLd9QM',NULL,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJibXVvQ0owUFBWVlNSaUM5ajBIczRxWEhmMzUxbGFBQllESHRCaHIyIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9lbXByZXNhc1wvMiIsInJvdXRlIjoiY2l1ZGFkZXMuZW1wcmVzYXMuc2hvdyJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19',1790547507);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -613,13 +613,13 @@ CREATE TABLE `telefonos` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `empresa` bigint unsigned NOT NULL,
+  `empresa_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `telefonos_empresa_foreign` (`empresa`),
-  CONSTRAINT `telefonos_empresa_foreign` FOREIGN KEY (`empresa`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `telefonos_empresa_foreign` (`empresa_id`),
+  CONSTRAINT `telefonos_empresa_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -628,6 +628,7 @@ CREATE TABLE `telefonos` (
 
 LOCK TABLES `telefonos` WRITE;
 /*!40000 ALTER TABLE `telefonos` DISABLE KEYS */;
+INSERT INTO `telefonos` VALUES (2,'+56','988051289',2,'2026-09-27 22:18:14','2026-09-27 22:18:14'),(3,'+56','956130140',2,'2026-09-27 22:18:27','2026-09-27 22:18:27');
 /*!40000 ALTER TABLE `telefonos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -671,4 +672,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-27  0:15:32
+-- Dump completed on 2026-09-27 19:19:43
