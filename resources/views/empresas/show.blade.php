@@ -86,6 +86,26 @@
                                 <th>Actualizado:</th>
                                 <td> {{ $empresa->updated_at->format('d/m/Y H:i') }} </td>
                             </tr>
+                            <tr>
+                                <th>Teléfonos:</th>
+                                <td>
+                                    @if ($empresa->telefonos)
+                                        <ul class="list-unstyled">
+                                            @forelse ($empresa->telefonos as $telefono)
+                                                <li>
+                                                    <a href="{{ route('empresas.telefonos.show', $telefono) }}"><i
+                                                            class="bi bi-telephone-forward"></i> {{ $telefono->codigo }} -
+                                                        {{ $telefono->numero }}</a>
+                                                </li>
+                                            @empty
+                                                <li class="text-info">No hay teléfonos registrados para esta empresa.</li>
+                                            @endforelse
+                                    @endforelse
+                                    </ul>
+                                    <a href="{{ route('empresas.telefonos.create', $empresa) }}"
+                                        class="btn btn-primary btn-sm">Agregar Teléfono</a>
+                                </td>
+                            </tr>
                         </table>
 
                     </div>
