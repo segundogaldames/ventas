@@ -39,7 +39,16 @@
                 </table>
             </div>
         </div>
-        <a href="{{ route('empresaTipos.index') }}" class="btn btn-primary my-2">Volver</a>
+        <div class="d-flex gap-2">
+            <x-back-button :route="route('empresaTipos.index')" class="my-2"></x-back-button>
+            <x-edit-button :route="route('empresaTipos.edit', $empresaTipo)" class="my-2"></x-edit-button>
+            <form action="{{ route('empresaTipos.destroy', $empresaTipo) }}" method="post"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tipo de empresa?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger my-2"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">

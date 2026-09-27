@@ -53,6 +53,16 @@
             </form>
         </div>
         {{-- lista de empresas --}}
+        <div class="card">
+            <div class="card-title">
+                <h1 class="fs-3 m-3">
+                    Empresas de {{ $ciudad->nombre }}
+                    <a href="{{ route('ciudades.empresas.create', $ciudad) }}" class="btn btn-outline-secondary">Nueva
+                        Empresa</a>
+                </h1>
+            </div>
+            <div class="card-body"></div>
+        </div>
     </div>
 @stop
 

@@ -32,17 +32,8 @@
                             <td> {{ $tipo->id }} </td>
                             <td> {{ $tipo->nombre }} </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('empresaTipos.show', $tipo) }}" class="btn btn-success btn-sm"><i
-                                        class="bi bi-eye"></i></a>
-                                <a href="{{ route('empresaTipos.edit', $tipo) }}" class="btn btn-warning btn-sm"><i
-                                        class="bi bi-pencil"></i></a>
-                                <form action="{{ route('empresaTipos.destroy', $tipo) }}" method="post"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tipo de empresa?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="bi bi-trash"></i></button>
-                                </form>
+                                <x-show-button :route="route('empresaTipos.show', $tipo)" class="btn-sm"></x-show-button>
+
                             </td>
                         </tr>
                     @endforeach

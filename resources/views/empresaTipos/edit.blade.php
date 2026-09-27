@@ -16,7 +16,7 @@
                     @csrf
                     @method('PUT')
                     @include('empresaTipos.form')
-                    <a href="{{ route('empresaTipos.index') }}" class="btn btn-primary">Volver</a>
+                    <x-back-button :route="route('empresaTipos.show', $empresaTipo)"></x-back-button>
                 </form>
             </div>
         </div>

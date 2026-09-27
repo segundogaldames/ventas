@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\Empresa;
 use App\Models\EmpresaTipo;
+use App\Rules\ValidateRut;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -35,19 +36,24 @@ class EmpresaController extends Controller
     public function store(Request $request, Ciudad $ciudad)
     {
         $validated = $request->validate([
-            'nit' => ['required', 'unique:empresas', 'min:3', 'max:255'],
+            'nit' => ['required', 'unique:empresas,nit', new ValidateRut],
             'nombre' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'sitio_web' => ['required', 'url', 'max:255'],
+            'email' => ['required', 'email'],
+            'sitio_web' => ['required', 'url'],
             'direccion' => ['required', 'min:3'],
             'codigo_postal' => ['required', 'min:3', 'max:255'],
             'logo' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-            'empresa_tipo' => ['required', 'numeric']
+            'empresa_tipo_id' => ['required', 'numeric']
         ]);
+
+        if ($request->hasFile('logo')) {
+            // Esto lo guarda en storage/app/public/logos y devuelve la ruta relativa (ej: logos/xyz.png)
+            $validated['logo'] = $request->file('logo')->store('logos', 'public');
+        }
 
         $ciudad->empresas()->create($validated);
 
-        return view('provincias.ciudades.show', [$ciudad->provincia, $ciudad]);
+        return redirect()->route('empresas.index')->with('success', 'La empresa se ha registrado correctamente');
     }
 
     /**
@@ -64,7 +70,8 @@ class EmpresaController extends Controller
     public function edit(Empresa $empresa)
     {
         $ciudades = Ciudad::with('provincia.pais')->orderBy('nombre')->get();
-        return view('empresas.show', compact('empresa', 'ciudades'));
+        $empresaTipos = EmpresaTipo::orderBy('nombre')->get();
+        return view('empresas.edit', compact('empresa', 'ciudades', 'empresaTipos'));
     }
 
     /**
@@ -72,7 +79,27 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, Empresa $empresa)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email'],
+            'sitio_web' => ['required', 'url'],
+            'direccion' => ['required', 'min:3'],
+            'codigo_postal' => ['required', 'min:3', 'max:255'],
+            'logo' => ['nullable', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'empresa_tipo_id' => ['required', 'numeric']
+        ]);
+
+        if ($request->hasFile('logo')) {
+            if ($empresa->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($empresa->logo)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($empresa->logo);
+            }
+            // Esto lo guarda en storage/app/public/logos y devuelve la ruta relativa (ej: logos/xyz.png)
+            $validated['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $empresa->update($validated);
+
+        return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'La empresa se ha modificado correctamente');
     }
 
     /**
@@ -80,6 +107,16 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        if ($empresa->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($empresa->logo)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($empresa->logo);
+        }
+
+        $empresa->telefonos()->delete();
+
+        $empresa->usuarios()->detach();
+
+        $empresa->delete();
+
+        return redirect()->route('empresas.index', $empresa)->with('success', 'La empresa y sus registros asociados se han eliminado con éxito.');
     }
 }

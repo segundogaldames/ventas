@@ -74,7 +74,7 @@ class EmpresaTipoController extends Controller
     public function destroy(EmpresaTipo $empresaTipo)
     {
         if ($empresaTipo->empresas()->exists()) {
-            return redirect()->route('empresaTipos.index')->with('error', 'No se puede eliminar este tipo de empresa. Tiene empresas asociadas');
+            return redirect()->route('empresaTipos.show', $empresaTipo)->with('error', 'No se puede eliminar este tipo de empresa. Tiene empresas asociadas');
         }
 
         $empresaTipo->delete();

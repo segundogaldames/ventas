@@ -832,11 +832,12 @@ return [
                 [
                     'text' => 'Tipo Empresas',
                     'route' => 'empresaTipos.index',
-                    'icon' => 'bi bi-buildings-fill'
+                    'icon' => 'bi bi-building-add'
                 ],
                 [
                     'text' => 'Ubicaciones',
                     'url' => '#',
+                    'icon' => 'bi bi-geo-alt',
                     'submenu' => [
                         [
                             'text' => 'Países',
@@ -846,12 +847,12 @@ return [
                         [
                             'text' => 'Provincias',
                             'route' => 'provincias.index',
-                            'icon' => 'bi bi-globe-americas-fill'
+                            'icon' => 'bi bi-radar'
                         ],
                         [
                             'text' => 'Ciudades',
                             'route' => 'ciudades.index',
-                            'icon' => 'bi bi-globe-americas-fill'
+                            'icon' => 'bi bi-geo'
                         ],
                         [
                             'text' => 'level_two',

@@ -1,21 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Tipo Empresas')
+@section('title', 'Empresas')
 
 @section('content_header')
     <h1>
-        Nuevo Tipo Empresa
+        Nueva Empresa
     </h1>
 @stop
 
 @section('content')
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-10 offset-md-1">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('empresaTipos.store') }}" method="post">
+                <form action="{{ route('ciudades.empresas.store', $ciudad) }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('empresaTipos.form')
-                    <x-back-button :route="route('empresaTipos.index')"></x-back-button>
+                    @include('empresas.form')
+                    <x-back-button :route="route('provincias.ciudades.show', $ciudad)"></x-back-button>
                 </form>
             </div>
         </div>
