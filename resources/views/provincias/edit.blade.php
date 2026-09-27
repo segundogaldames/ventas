@@ -16,7 +16,7 @@
                     @csrf
                     @method('PUT')
                     @include('provincias.form')
-                    <a href="{{ route('paises.provincias.show', $provincia) }}" class="btn btn-primary">Volver</a>
+                    <x-back-button :route="route('paises.provincias.show', $provincia)"></x-back-button>
                 </form>
             </div>
         </div>

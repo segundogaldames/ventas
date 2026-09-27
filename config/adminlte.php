@@ -828,28 +828,30 @@ return [
                     'route' => 'empresas.index',
                     'icon' => 'bi bi-buildings-fill'
                 ],
-                [
-                    'text' => 'Paises',
-                    'route' => 'paises.index',
-                    'icon' => 'bi bi-globe-americas-fill'
-                ],
-                [
-                    'text' => 'Provincias',
-                    'route' => 'provincias.index',
-                    'icon' => 'bi bi-globe-americas-fill'
-                ],
+
                 [
                     'text' => 'Tipo Empresas',
                     'route' => 'empresaTipos.index',
                     'icon' => 'bi bi-buildings-fill'
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Ubicaciones',
                     'url' => '#',
                     'submenu' => [
                         [
-                            'text' => 'level_two',
-                            'url' => '#',
+                            'text' => 'Países',
+                            'route' => 'paises.index',
+                            'icon' => 'bi bi-globe-americas-fill'
+                        ],
+                        [
+                            'text' => 'Provincias',
+                            'route' => 'provincias.index',
+                            'icon' => 'bi bi-globe-americas-fill'
+                        ],
+                        [
+                            'text' => 'Ciudades',
+                            'route' => 'ciudades.index',
+                            'icon' => 'bi bi-globe-americas-fill'
                         ],
                         [
                             'text' => 'level_two',

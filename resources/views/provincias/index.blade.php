@@ -35,10 +35,8 @@
                             <td> <a href="{{ route('paises.show', $provincia->pais) }}">{{ $provincia->pais->nombre }}</a>
                             </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('paises.provincias.show', $provincia) }}"
-                                    class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
-                                <a href="{{ route('paises.provincias.edit', $provincia) }}"
-                                    class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <x-show-button :route="route('paises.provincias.show', $provincia)"></x-show-button>
+                                <x-edit-button :route="route('paises.provincias.edit', $provincia)"></x-edit-button>
                                 <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
                                     onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
                                     @csrf

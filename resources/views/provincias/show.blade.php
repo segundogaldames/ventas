@@ -38,7 +38,7 @@
                 </table>
             </div>
         </div>
-        <a href="{{ route('provincias.index') }}" class="btn btn-primary my-2">Volver</a>
+        <x-back-button class="my-2"></x-back-button>
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">
@@ -62,12 +62,9 @@
                                 <td> {{ $ciudad->id }} </td>
                                 <td> {{ $ciudad->nombre }} </td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('provincias.ciudades.show', [$provincia, $ciudad]) }}"
-                                        class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('provincias.ciudades.edit', [$provincia, $ciudad]) }}"
-                                        class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
-                                    <form action="{{ route('provincias.ciudades.destroy', [$provincia, $ciudad]) }}"
-                                        method="post"
+                                    <x-show-button :route="route('provincias.ciudades.show', [$ciudad])"></x-show-button>
+                                    <x-edit-button :route="route('provincias.ciudades.edit', [$ciudad])"></x-edit-button>
+                                    <form action="{{ route('provincias.ciudades.destroy', [$ciudad]) }}" method="post"
                                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta ciudad?');">
                                         @csrf
                                         @method('DELETE')
