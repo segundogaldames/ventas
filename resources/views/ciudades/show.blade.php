@@ -42,8 +42,17 @@
                 </table>
             </div>
         </div>
-        <a href="{{ route('paises.provincias.show', [$provincia->pais, $provincia]) }}"
-            class="btn btn-primary my-2">Volver</a>
+        <div class="d-flex gap-2">
+            <x-back-button :route="route('ciudades.index')" class="my-2"></x-back-button>
+            <x-edit-button :route="route('provincias.ciudades.edit', $ciudad)" class="my-2"></x-edit-button>
+            <form action="{{ route('provincias.ciudades.destroy', $ciudad) }}" method="post"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta ciudad?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger mt-2"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+        {{-- lista de empresas --}}
     </div>
 @stop
 

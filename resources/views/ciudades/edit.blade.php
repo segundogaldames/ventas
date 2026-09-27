@@ -12,12 +12,11 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('provincias.ciudades.update', [$provincia, $ciudad]) }}" method="post">
+                <form action="{{ route('provincias.ciudades.update', $ciudad) }}" method="post">
                     @csrf
                     @method('PUT')
                     @include('ciudades.form')
-                    <a href="{{ route('paises.provincias.show', [$provincia->pais, $provincia]) }}"
-                        class="btn btn-primary">Volver</a>
+                    <x-back-button :route="route('provincias.ciudades.show', $ciudad)"></x-back-button>
                 </form>
             </div>
         </div>

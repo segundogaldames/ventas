@@ -11,7 +11,7 @@
     <h1>
         Ciudades
     </h1>
-    <p class="fs-5 text-info">Para registrar ciudades debe hacerlo desde una provincia</p>
+    <p class="fs-5 text-info">Para registrar ciudades debe hacerlo seleccionando una provincia</p>
 @stop
 
 @section('content')
@@ -33,20 +33,14 @@
                         <tr>
                             <td> {{ $ciudad->id }} </td>
                             <td> {{ $ciudad->nombre }} </td>
-                            <td> {{ $ciudad->provincia->nombre }} </td>
-                            <td> {{ $ciudad->provincia->pais }} </td>
-                            <td class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('ciudades.show', $ciudad) }}" class="btn btn-success btn-sm"><i
-                                        class="bi bi-eye"></i></a>
-                                <a href="{{ route('ciudades.edit', $ciudad) }}" class="btn btn-warning btn-sm"><i
-                                        class="bi bi-pencil"></i></a>
-                                <form action="{{ route('ciudades.destroy', $ciudad) }}" method="post"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta ciudad?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="bi bi-trash"></i></button>
-                                </form>
+                            <td> <a
+                                    href="{{ route('paises.provincias.show', $ciudad->provincia) }}">{{ $ciudad->provincia->nombre }}</a>
+                            </td>
+                            <td> <a
+                                    href="{{ route('paises.show', $ciudad->provincia->pais) }}">{{ $ciudad->provincia->pais->nombre }}</a>
+                            </td>
+                            <td>
+                                <x-show-button :route="route('provincias.ciudades.show', $ciudad)" class="btn-sm"></x-show-button>
                             </td>
                         </tr>
                     @endforeach

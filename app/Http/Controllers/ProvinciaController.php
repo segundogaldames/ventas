@@ -73,11 +73,11 @@ class ProvinciaController extends Controller
     public function destroy(Provincia $provincia)
     {
         if ($provincia->ciudades()->exists()) {
-            return redirect()->route('paises.show', $provincia->pais)->with('error', 'Esta provincia no se puede eliminar. Tiene ciudades asociadas');
+            return redirect()->route('paises.provincias.show', $provincia)->with('error', 'Esta provincia no se puede eliminar. Tiene ciudades asociadas');
         }
 
         $provincia->delete();
 
-        return redirect()->route('paises.show', $provincia->pais)->with('success', 'La provincia se ha eliminado correctamente');
+        return redirect()->route('provincias.index')->with('success', 'La provincia se ha eliminado correctamente');
     }
 }

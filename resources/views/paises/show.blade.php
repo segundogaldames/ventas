@@ -17,6 +17,7 @@
 
     <div class="col-md-8 offset-md-2">
         @include('partials.messages')
+        {{-- detalle del pais --}}
         <div class="card">
             <div class="card-body">
                 <table class="table table-hover">
@@ -39,7 +40,17 @@
                 </table>
             </div>
         </div>
-        <x-back-button :route="route('paises.index')" class="my-2">Volver a Paises</x-back-button>
+        <div class="d-flex gap-2">
+            <x-back-button :route="route('paises.index')" class="my-2"></x-back-button>
+            <x-edit-button :route="route('paises.edit', $pais)" class="my-2"></x-edit-button>
+            <form action="{{ route('paises.destroy', $pais) }}" method="post"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger mt-2"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+        {{-- lista de provincias --}}
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">
@@ -63,15 +74,7 @@
                                 <td> {{ $provincia->id }} </td>
                                 <td> {{ $provincia->nombre }} </td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <x-show-button :route="route('paises.provincias.show', $provincia)"></x-show-button>
-                                    <x-edit-button :route="route('paises.provincias.edit', $provincia)"></x-edit-button>
-                                    <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
-                                        onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta provincia?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                class="bi bi-trash"></i></button>
-                                    </form>
+                                    <x-show-button :route="route('paises.provincias.show', $provincia)" class="btn-sm"></x-show-button>
                                 </td>
                             </tr>
                         @endforeach

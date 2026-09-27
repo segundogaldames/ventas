@@ -38,12 +38,23 @@
                 </table>
             </div>
         </div>
-        <x-back-button class="my-2"></x-back-button>
+        <div class="d-flex gap-2">
+            <x-back-button class="my-2" :route="route('provincias.index')"></x-back-button>
+            <x-edit-button :route="route('paises.provincias.edit', $provincia)" class="my-2"></x-edit-button>
+            <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta provincia?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger my-2"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">
                     Ciudades de {{ $provincia->nombre }}
-                    <a href="{{ route('provincias.ciudades.create', [$provincia]) }}" class="btn btn-outline-secondary">Nueva
+                    <a href="{{ route('provincias.ciudades.create', [$provincia]) }}"
+                        class="btn btn-outline-secondary">Nueva
                         Ciudad</a>
                 </h1>
             </div>
@@ -62,15 +73,7 @@
                                 <td> {{ $ciudad->id }} </td>
                                 <td> {{ $ciudad->nombre }} </td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <x-show-button :route="route('provincias.ciudades.show', [$ciudad])"></x-show-button>
-                                    <x-edit-button :route="route('provincias.ciudades.edit', [$ciudad])"></x-edit-button>
-                                    <form action="{{ route('provincias.ciudades.destroy', [$ciudad]) }}" method="post"
-                                        onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta ciudad?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                class="bi bi-trash"></i></button>
-                                    </form>
+                                    <x-show-button :route="route('provincias.ciudades.show', [$ciudad])" class="btn-sm"></x-show-button>
                                 </td>
                             </tr>
                         @endforeach

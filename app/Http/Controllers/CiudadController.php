@@ -34,7 +34,7 @@ class CiudadController extends Controller
 
         $provincia->ciudades()->create($validated);
 
-        return redirect()->route('paises.provincias.show', [$provincia->pais, $provincia])->with('success', 'La ciudad se ha registrado correctamente');
+        return redirect()->route('paises.provincias.show', $provincia)->with('success', 'La ciudad se ha registrado correctamente');
     }
 
     /**
@@ -64,7 +64,7 @@ class CiudadController extends Controller
 
         $ciudad->update($validated);
 
-        return redirect()->route('provincias.ciudades.show', [$ciudad])->with('success', 'La ciudad se ha modificado correctamente');
+        return redirect()->route('provincias.ciudades.show', $ciudad)->with('success', 'La ciudad se ha modificado correctamente');
     }
 
     /**
@@ -73,11 +73,11 @@ class CiudadController extends Controller
     public function destroy(Ciudad $ciudad)
     {
         if ($ciudad->empresas()->exists()) {
-            return redirect()->route('paises.provincias.show', [$ciudad->provincia])->with('error', 'Esta ciudad no se puede eliminar. Tiene empresas asociadas');
+            return redirect()->route('provincias.ciudades.show', $ciudad)->with('error', 'Esta ciudad no se puede eliminar. Tiene empresas asociadas');
         }
 
         $ciudad->delete();
 
-        return redirect()->route('paises.provincias.show', [$ciudad->provincia])->with('success', 'La ciudad se ha eliminado correctamente');
+        return redirect()->route('ciudades.index')->with('success', 'La ciudad se ha eliminado correctamente');
     }
 }

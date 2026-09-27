@@ -35,15 +35,7 @@
                             <td> <a href="{{ route('paises.show', $provincia->pais) }}">{{ $provincia->pais->nombre }}</a>
                             </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <x-show-button :route="route('paises.provincias.show', $provincia)"></x-show-button>
-                                <x-edit-button :route="route('paises.provincias.edit', $provincia)"></x-edit-button>
-                                <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="bi bi-trash"></i></button>
-                                </form>
+                                <x-show-button :route="route('paises.provincias.show', $provincia)" class="btn-sm"></x-show-button>
                             </td>
                         </tr>
                     @endforeach

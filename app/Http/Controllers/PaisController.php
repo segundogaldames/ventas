@@ -76,7 +76,7 @@ class PaisController extends Controller
     public function destroy(Pais $pais)
     {
         if ($pais->provincias()->exists()) {
-            return redirect()->route('paises.index')->with('error', 'No se puede eliminar este país. Tiene provincias asociadas');
+            return redirect()->route('paises.show', $pais)->with('error', 'No se puede eliminar este país. Tiene provincias asociadas');
         }
 
         $pais->delete();
