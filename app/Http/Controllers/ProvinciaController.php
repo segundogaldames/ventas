@@ -21,7 +21,7 @@ class ProvinciaController extends Controller
      */
     public function store(Request $request, Pais $pais)
     {
-        $validated = $validated = $request->validate([
+        $validated = $request->validate([
             'nombre' => ['required', 'unique:provincias', 'min:3', 'max:255']
         ]);
 

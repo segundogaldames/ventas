@@ -16,6 +16,7 @@ class Provincia extends Model
             set: fn(string $value) => Str::title(mb_strtolower($value))
         );
     }
+
     public function pais()
     {
         return $this->belongsTo(Pais::class);

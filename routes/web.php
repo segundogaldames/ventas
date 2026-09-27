@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProvinciaController;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
 Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
+Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad']);
