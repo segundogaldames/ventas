@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'Paises')
+@section('title', 'Tipo Empresas')
 
 @section('content_header')
     <h1>
-        Países
-        <a href="{{ route('paises.create') }}" class="btn btn-outline-secondary">Nuevo País</a>
+        Tipo Empresas
+        <a href="{{ route('empresaTipos.create') }}" class="btn btn-outline-secondary">Nuevo Tipo Empresa</a>
     </h1>
 @stop
 
@@ -22,22 +22,22 @@
                 <thead>
                     <tr>
                         <th class="col-2">Id</th>
-                        <td class="col-8">País</td>
+                        <td class="col-8">Tipo Empresa</td>
                         <td class="col-2"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($paises as $pais)
+                    @foreach ($tipos as $tipo)
                         <tr>
-                            <td> {{ $pais->id }} </td>
-                            <td> {{ $pais->nombre }} </td>
+                            <td> {{ $tipo->id }} </td>
+                            <td> {{ $tipo->nombre }} </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <a href="{{ route('paises.show', $pais) }}" class="btn btn-success btn-sm"><i
+                                <a href="{{ route('empresaTipos.show', $tipo) }}" class="btn btn-success btn-sm"><i
                                         class="bi bi-eye"></i></a>
-                                <a href="{{ route('paises.edit', $pais) }}" class="btn btn-warning btn-sm"><i
+                                <a href="{{ route('empresaTipos.edit', $tipo) }}" class="btn btn-warning btn-sm"><i
                                         class="bi bi-pencil"></i></a>
-                                <form action="{{ route('paises.destroy', $pais) }}" method="post"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
+                                <form action="{{ route('empresaTipos.destroy', $tipo) }}" method="post"
+                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tipo de empresa?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i

@@ -58,7 +58,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($pais->provincias as $provincia)
+                        @foreach ($pais->provincias as $provincia)
                             <tr>
                                 <td> {{ $provincia->id }} </td>
                                 <td> {{ $provincia->nombre }} </td>
@@ -77,11 +77,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-info"> No hay provincias registradas </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

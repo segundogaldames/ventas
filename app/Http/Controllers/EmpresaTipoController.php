@@ -12,7 +12,8 @@ class EmpresaTipoController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = EmpresaTipo::all();
+        return view('empresaTipos.index', compact('tipos'));
     }
 
     /**
@@ -20,7 +21,7 @@ class EmpresaTipoController extends Controller
      */
     public function create()
     {
-        //
+        return view('empresaTipos.create');
     }
 
     /**
@@ -28,7 +29,13 @@ class EmpresaTipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => ['required', 'unique:empresa_tipos', 'min:3', 'max:255']
+        ]);
+
+        EmpresaTipo::create($validated);
+
+        return redirect()->route('empresaTipos.index')->with('success', 'El tipo de empresa se ha registrado correctamente');
     }
 
     /**
@@ -36,7 +43,7 @@ class EmpresaTipoController extends Controller
      */
     public function show(EmpresaTipo $empresaTipo)
     {
-        //
+        return view('empresaTipos.show', compact('empresaTipo'));
     }
 
     /**
@@ -44,7 +51,7 @@ class EmpresaTipoController extends Controller
      */
     public function edit(EmpresaTipo $empresaTipo)
     {
-        //
+        return view('empresaTipos.edit', compact('empresaTipo'));
     }
 
     /**
@@ -52,7 +59,13 @@ class EmpresaTipoController extends Controller
      */
     public function update(Request $request, EmpresaTipo $empresaTipo)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => ['required', 'unique:empresa_tipos,nombre,' . $empresaTipo->id, 'min:3', 'max:255']
+        ]);
+
+        $empresaTipo->update($validated);
+
+        return redirect()->route('empresaTipos.show', $empresaTipo)->with('success', 'El tipo de empresa se ha modificado correctamente');
     }
 
     /**
@@ -60,6 +73,12 @@ class EmpresaTipoController extends Controller
      */
     public function destroy(EmpresaTipo $empresaTipo)
     {
-        //
+        if ($empresaTipo->empresas()->exists()) {
+            return redirect()->route('empresaTipos.index')->with('error', 'No se puede eliminar este tipo de empresa. Tiene empresas asociadas');
+        }
+
+        $empresaTipo->delete();
+
+        return redirect()->route('empresaTipos.index')->with('success', 'El tipo de empresa se ha eliminado correctamente');
     }
 }

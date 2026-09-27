@@ -834,6 +834,11 @@ return [
                     'icon' => 'bi bi-globe-americas-fill'
                 ],
                 [
+                    'text' => 'Tipo Empresas',
+                    'route' => 'empresaTipos.index',
+                    'icon' => 'bi bi-buildings-fill'
+                ],
+                [
                     'text' => 'level_one',
                     'url' => '#',
                     'submenu' => [
