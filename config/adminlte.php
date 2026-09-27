@@ -825,7 +825,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Empresas',
-                    'url' => '#',
+                    'route' => 'empresas.index',
                     'icon' => 'bi bi-buildings-fill'
                 ],
                 [

@@ -15,6 +15,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index');
 
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
 Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
