@@ -39,7 +39,7 @@
                 </table>
             </div>
         </div>
-        <a href="{{ route('paises.index') }}" class="btn btn-primary my-2">Volver</a>
+        <x-back-button :route="route('paises.index')" class="my-2">Volver a Paises</x-back-button>
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">
@@ -63,12 +63,9 @@
                                 <td> {{ $provincia->id }} </td>
                                 <td> {{ $provincia->nombre }} </td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('paises.provincias.show', [$pais, $provincia]) }}"
-                                        class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('paises.provincias.edit', [$pais, $provincia]) }}"
-                                        class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
-                                    <form action="{{ route('paises.provincias.destroy', [$pais, $provincia]) }}"
-                                        method="post"
+                                    <x-show-button :route="route('paises.provincias.show', $provincia)"></x-show-button>
+                                    <x-edit-button :route="route('paises.provincias.edit', $provincia)"></x-edit-button>
+                                    <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
                                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta provincia?');">
                                         @csrf
                                         @method('DELETE')

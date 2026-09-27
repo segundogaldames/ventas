@@ -17,7 +17,7 @@
                 <table class="table table-hover">
                     <tr>
                         <th>Id:</th>
-                        <td> {{ $pais->id }} </td>
+                        <td> {{ $provincia->id }} </td>
                     </tr>
                     <tr>
                         <th>Nombre:</th>
@@ -38,7 +38,7 @@
                 </table>
             </div>
         </div>
-        <a href="{{ route('paises.show', $pais) }}" class="btn btn-primary my-2">Volver</a>
+        <a href="{{ route('provincias.index') }}" class="btn btn-primary my-2">Volver</a>
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">

@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ProvinciaController extends Controller
 {
+    public function index()
+    {
+        $provincias = Provincia::orderBy('nombre')->get();
+
+        return view('provincias.index', compact('provincias'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -33,23 +40,23 @@ class ProvinciaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pais $pais, Provincia $provincia)
+    public function show(Provincia $provincia)
     {
-        return view('provincias.show', compact('pais', 'provincia'));
+        return view('provincias.show', compact('provincia'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pais $pais, Provincia $provincia)
+    public function edit(Provincia $provincia)
     {
-        return view('provincias.edit', compact('pais', 'provincia'));
+        return view('provincias.edit', compact('provincia'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pais $pais, Provincia $provincia)
+    public function update(Request $request, Provincia $provincia)
     {
         $validated = $validated = $request->validate([
             'nombre' => ['required', 'unique:provincias,nombre,' . $provincia->id, 'min:3', 'max:255']
@@ -57,13 +64,13 @@ class ProvinciaController extends Controller
 
         $provincia->update($validated);
 
-        return redirect()->route('paises.provincias.show', [$pais, $provincia])->with('success', 'La provincia se ha modificado correctamente');
+        return redirect()->route('paises.provincias.show', [$provincia])->with('success', 'La provincia se ha modificado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pais $pais, Provincia $provincia)
+    public function destroy(Provincia $provincia)
     {
         if ($provincia->ciudades()->exists()) {
             return redirect()->route('paises.show', $provincia->pais)->with('error', 'Esta provincia no se puede eliminar. Tiene ciudades asociadas');

@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'Paises')
+@section('title', 'Provincias')
 
 @section('content_header')
     <h1>
-        Países
-        <a href="{{ route('paises.create') }}" class="btn btn-outline-secondary">Nuevo País</a>
+        Provincias
     </h1>
+    <p class="fs-5 text-info">Para agregar una provincia debe seleccionar un país</p>
 @stop
 
 @section('content')
@@ -22,19 +22,24 @@
                 <thead>
                     <tr>
                         <th class="col-2">Id</th>
-                        <td class="col-8">País</td>
+                        <th class="col-4">Provincia</th>
+                        <td class="col-4">País</td>
                         <td class="col-2"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($paises as $pais)
+                    @foreach ($provincias as $provincia)
                         <tr>
-                            <td> {{ $pais->id }} </td>
-                            <td> {{ $pais->nombre }} </td>
+                            <td> {{ $provincia->id }} </td>
+                            <td> {{ $provincia->nombre }} </td>
+                            <td> <a href="{{ route('paises.show', $provincia->pais) }}">{{ $provincia->pais->nombre }}</a>
+                            </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <x-show-button :route="route('paises.show', $pais)"></x-show-button>
-                                <x-edit-button :route="route('paises.edit', $pais)"></x-edit-button>
-                                <form action="{{ route('paises.destroy', $pais) }}" method="post"
+                                <a href="{{ route('paises.provincias.show', $provincia) }}"
+                                    class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('paises.provincias.edit', $provincia) }}"
+                                    class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                                <form action="{{ route('paises.provincias.destroy', $provincia) }}" method="post"
                                     onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
                                     @csrf
                                     @method('DELETE')

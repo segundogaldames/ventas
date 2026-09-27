@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'Paises')
+@section('title', 'Ciudades')
 
 @section('content_header')
     <h1>
-        Países
-        <a href="{{ route('paises.create') }}" class="btn btn-outline-secondary">Nuevo País</a>
+        Ciudades
     </h1>
+    <p class="fs-5 text-info">Para registrar ciudades debe hacerlo desde una provincia</p>
 @stop
 
 @section('content')
@@ -22,20 +22,26 @@
                 <thead>
                     <tr>
                         <th class="col-2">Id</th>
-                        <td class="col-8">País</td>
+                        <td class="col-3">Ciudad</td>
+                        <td class="col-3">Provincia</td>
+                        <td class="col-2">País</td>
                         <td class="col-2"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($paises as $pais)
+                    @foreach ($ciudades as $ciudad)
                         <tr>
-                            <td> {{ $pais->id }} </td>
-                            <td> {{ $pais->nombre }} </td>
+                            <td> {{ $ciudad->id }} </td>
+                            <td> {{ $ciudad->nombre }} </td>
+                            <td> {{ $ciudad->provincia->nombre }} </td>
+                            <td> {{ $ciudad->provincia->pais }} </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <x-show-button :route="route('paises.show', $pais)"></x-show-button>
-                                <x-edit-button :route="route('paises.edit', $pais)"></x-edit-button>
-                                <form action="{{ route('paises.destroy', $pais) }}" method="post"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
+                                <a href="{{ route('ciudades.show', $ciudad) }}" class="btn btn-success btn-sm"><i
+                                        class="bi bi-eye"></i></a>
+                                <a href="{{ route('ciudades.edit', $ciudad) }}" class="btn btn-warning btn-sm"><i
+                                        class="bi bi-pencil"></i></a>
+                                <form action="{{ route('ciudades.destroy', $ciudad) }}" method="post"
+                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta ciudad?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i

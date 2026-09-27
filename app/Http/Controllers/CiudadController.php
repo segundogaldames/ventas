@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CiudadController extends Controller
 {
+    public function index()
+    {
+        $ciudades = Ciudad::with('provincia.pais')->orderBy('nombre')->get();
+
+        return view('ciudades.index', compact('ciudades'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -34,23 +40,23 @@ class CiudadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Provincia $provincia, Ciudad $ciudad)
+    public function show(Ciudad $ciudad)
     {
-        return view('ciudades.show', compact('provincia', 'ciudad'));
+        return view('ciudades.show', compact('ciudad'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Provincia $provincia, Ciudad $ciudad)
+    public function edit(Ciudad $ciudad)
     {
-        return view('ciudades.edit', compact('provincia', 'ciudad'));
+        return view('ciudades.edit', compact('ciudad'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Provincia $provincia, Ciudad $ciudad)
+    public function update(Request $request, Ciudad $ciudad)
     {
         $validated = $request->validate([
             'nombre' => ['required', 'unique:ciudades,nombre,' . $ciudad->id, 'min:3', 'max:255']
@@ -58,20 +64,20 @@ class CiudadController extends Controller
 
         $ciudad->update($validated);
 
-        return redirect()->route('provincias.ciudades.show', [$provincia, $ciudad])->with('success', 'La ciudad se ha modificado correctamente');
+        return redirect()->route('provincias.ciudades.show', [$ciudad])->with('success', 'La ciudad se ha modificado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Provincia $provincia, Ciudad $ciudad)
+    public function destroy(Ciudad $ciudad)
     {
         if ($ciudad->empresas()->exists()) {
-            return redirect()->route('paises.provincias.show', [$provincia->pais, $provincia])->with('error', 'Esta ciudad no se puede eliminar. Tiene empresas asociadas');
+            return redirect()->route('paises.provincias.show', [$ciudad->provincia])->with('error', 'Esta ciudad no se puede eliminar. Tiene empresas asociadas');
         }
 
         $ciudad->delete();
 
-        return redirect()->route('paises.provincias.show', [$provincia->pais, $provincia])->with('success', 'La ciudad se ha eliminado correctamente');
+        return redirect()->route('paises.provincias.show', [$ciudad->provincia])->with('success', 'La ciudad se ha eliminado correctamente');
     }
 }

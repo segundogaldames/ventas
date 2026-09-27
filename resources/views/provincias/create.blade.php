@@ -15,7 +15,7 @@
                 <form action="{{ route('paises.provincias.store', $pais) }}" method="post">
                     @csrf
                     @include('provincias.form')
-                    <a href="{{ route('paises.index') }}" class="btn btn-primary">Volver</a>
+                    <a href="{{ route('provincias.index') }}" class="btn btn-primary">Volver</a>
                 </form>
             </div>
         </div>

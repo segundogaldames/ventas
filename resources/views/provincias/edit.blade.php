@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>
-        Nuevo País
+        Editar Provincia
     </h1>
 @stop
 
@@ -12,11 +12,11 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('paises.provincias.update', [$pais, $provincia]) }}" method="post">
+                <form action="{{ route('paises.provincias.update', $provincia) }}" method="post">
                     @csrf
                     @method('PUT')
                     @include('provincias.form')
-                    <a href="{{ route('paises.show', $pais) }}" class="btn btn-primary">Volver</a>
+                    <a href="{{ route('paises.provincias.show', $provincia) }}" class="btn btn-primary">Volver</a>
                 </form>
             </div>
         </div>

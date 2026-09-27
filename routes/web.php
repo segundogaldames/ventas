@@ -15,10 +15,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincias.index');
 Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index');
 
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
-Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
-Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad']);
+Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
+Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->shallow()->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad']);
 Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTipos')->parameters(['empresaTipos' => 'empresaTipo']);
 Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa']);

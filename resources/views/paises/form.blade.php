@@ -9,4 +9,4 @@
         </span>
     @enderror
 </div>
-<button type="submit" class="btn btn-primary">Guardar</button>
+<x-save-button></x-save-button>
