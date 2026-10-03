@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\Empresa;
 use App\Models\EmpresaTipo;
+use App\Models\User;
 use App\Rules\ValidateRut;
 use Illuminate\Http\Request;
 
@@ -102,6 +103,24 @@ class EmpresaController extends Controller
         return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'La empresa se ha modificado correctamente');
     }
 
+    public function asignarUsuario(Empresa $empresa)
+    {
+        $usuarios = User::all();
+
+        return view('empresas.asignar', compact('usuarios', 'empresa'));
+    }
+
+    public function registrarUsuario(Request $request, Empresa $empresa)
+    {
+        $validated = $request->validate([
+            'user_id' => ['required', 'numeric', 'exists:users,id']
+        ]);
+
+        $empresa->usuarios()->syncWithoutDetaching($validated['user_id']);
+
+        return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'El usuario se ha asociado a la empresa correctamente');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -118,5 +137,12 @@ class EmpresaController extends Controller
         $empresa->delete();
 
         return redirect()->route('empresas.index', $empresa)->with('success', 'La empresa y sus registros asociados se han eliminado con éxito.');
+    }
+
+    public function eliminarUsuario(Empresa $empresa, User $user)
+    {
+        $empresa->usuarios()->detach($user->id);
+
+        return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'El usuario se ha eliminado de la empresa correctamente');
     }
 }

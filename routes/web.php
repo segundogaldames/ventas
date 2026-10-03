@@ -21,6 +21,10 @@ Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincia
 Route::get('ciudades', [CiudadController::class, 'index'])->name('ciudades.index');
 Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index');
 
+Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar');
+Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar');
+Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, 'eliminarUsuario'])->name('empresas.usuarios.destroy');
+
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
 Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
 Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->shallow()->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad']);

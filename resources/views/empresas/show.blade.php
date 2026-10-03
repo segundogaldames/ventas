@@ -125,6 +125,44 @@
                                         class="btn btn-primary btn-sm">Agregar Impuesto</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Usuarios:</th>
+                                <td>
+                                    <ul class="list-unstyled mb-2">
+                                        @forelse ($empresa->usuarios as $usuario)
+                                            <li
+                                                class="d-flex align-items-center justify-content-between py-1 border-bottom">
+                                                <!-- Información del usuario en línea -->
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-person text-primary"></i>
+                                                    <span class="fw-semibold">{{ $usuario->name }}</span>
+                                                    <span class="text-muted small">({{ $usuario->email }})</span>
+                                                </div>
+
+                                                <!-- Botón de eliminar alineado a la derecha -->
+                                                <div>
+                                                    <form
+                                                        action="{{ route('empresas.usuarios.destroy', [$empresa, $usuario]) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('¿Desvincular usuario?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger btn-sm border-0"
+                                                            title="Desvincular">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        @empty
+                                            <li class="text-info">No hay usuarios registrados para esta empresa.</li>
+                                        @endforelse
+                                    </ul>
+                                    <a href="{{ route('empresas.usuarios.asignar', $empresa) }}"
+                                        class="btn btn-primary btn-sm">Agregar Usuario</a>
+                                </td>
+                            </tr>
                         </table>
 
                     </div>
