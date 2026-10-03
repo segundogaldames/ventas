@@ -3,6 +3,7 @@
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EmpresaTipoController;
+use App\Http\Controllers\ImpuestoController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\TelefonoController;
@@ -26,3 +27,4 @@ Route::resource('provincias.ciudades', CiudadController::class)->names('provinci
 Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTipos')->parameters(['empresaTipos' => 'empresaTipo']);
 Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa']);
 Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono']);
+Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto']);

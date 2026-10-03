@@ -89,21 +89,40 @@
                             <tr>
                                 <th>Teléfonos:</th>
                                 <td>
-                                    @if ($empresa->telefonos)
-                                        <ul class="list-unstyled">
-                                            @forelse ($empresa->telefonos as $telefono)
-                                                <li>
-                                                    <a href="{{ route('empresas.telefonos.show', $telefono) }}"><i
-                                                            class="bi bi-telephone-forward"></i> {{ $telefono->codigo }} -
-                                                        {{ $telefono->numero }}</a>
-                                                </li>
-                                            @empty
-                                                <li class="text-info">No hay teléfonos registrados para esta empresa.</li>
-                                            @endforelse
-                                    @endforelse
+
+                                    <ul class="list-unstyled">
+                                        @forelse ($empresa->telefonos as $telefono)
+                                            <li>
+                                                <a href="{{ route('empresas.telefonos.show', $telefono) }}"><i
+                                                        class="bi bi-telephone-forward"></i> {{ $telefono->codigo }} -
+                                                    {{ $telefono->numero }}</a>
+                                            </li>
+                                        @empty
+                                            <li class="text-info">No hay teléfonos registrados para esta empresa.</li>
+                                        @endforelse
+
                                     </ul>
                                     <a href="{{ route('empresas.telefonos.create', $empresa) }}"
                                         class="btn btn-primary btn-sm">Agregar Teléfono</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Impuestos:</th>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        @forelse ($empresa->impuestos as $impuesto)
+                                            <li>
+                                                <a href="{{ route('empresas.impuestos.show', $impuesto) }}"><i
+                                                        class="bi bi-calculator"></i> {{ $impuesto->nombre }} -
+                                                    {{ $impuesto->valor }}</a>
+                                            </li>
+                                        @empty
+                                            <li class="text-info">No hay impuestos registrados para esta empresa.</li>
+                                        @endforelse
+
+                                    </ul>
+                                    <a href="{{ route('empresas.impuestos.create', $empresa) }}"
+                                        class="btn btn-primary btn-sm">Agregar Impuesto</a>
                                 </td>
                             </tr>
                         </table>
