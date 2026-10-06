@@ -94,6 +94,18 @@
         <label for="logo" class="form-label">Logo</label>
         <input type="file" name="logo" class="form-control @error('logo') is-invalid @else '' @enderror"
             id="logo" value="{{ old('logo', $empresa->logo ?? '') }}" placeholder="Logo de la Empresa">
+        @if ($task == 'edit')
+            <div class="col-md-6 py-2">
+                @if ($empresa->logo)
+                    <!-- Muestra la imagen si existe -->
+                    <img src="{{ asset('storage/' . $empresa->logo) }}" alt="Logo" class="object-fit-cover w-100">
+                @else
+                    <!-- Imagen por defecto si no tiene logo -->
+                    <span class="badge bg-secondary">Sin logo</span>
+                @endif
+
+            </div>
+        @endif
 
         @error('logo')
             <span class="invalid-feedback">

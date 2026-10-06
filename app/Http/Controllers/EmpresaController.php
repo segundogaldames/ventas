@@ -26,9 +26,10 @@ class EmpresaController extends Controller
      */
     public function create(Ciudad $ciudad)
     {
+        $task = 'create';
         $empresaTipos = EmpresaTipo::orderBy('nombre')->get();
 
-        return view('empresas.create', compact('ciudad', 'empresaTipos'));
+        return view('empresas.create', compact('ciudad', 'empresaTipos', 'task'));
     }
 
     /**
@@ -70,9 +71,10 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
+        $task = 'edit';
         $ciudades = Ciudad::with('provincia.pais')->orderBy('nombre')->get();
         $empresaTipos = EmpresaTipo::orderBy('nombre')->get();
-        return view('empresas.edit', compact('empresa', 'ciudades', 'empresaTipos'));
+        return view('empresas.edit', compact('empresa', 'ciudades', 'empresaTipos', 'task'));
     }
 
     /**
