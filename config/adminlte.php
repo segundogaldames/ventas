@@ -800,7 +800,7 @@ return [
         ],
         [
             'text' => 'Roles',
-            'url' => 'admin/blog',
+            'route' => 'roles.index',
             'icon' => 'bi bi-person',
         ],
         [

@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresaTipoController;
 use App\Http\Controllers\ImpuestoController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProvinciaController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TelefonoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -32,3 +33,5 @@ Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTip
 Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa']);
 Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono']);
 Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto']);
+
+Route::resource('roles', RoleController::class)->names('roles')->middleware('auth');
