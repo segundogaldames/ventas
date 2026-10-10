@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\If_;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -72,8 +73,14 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        if($role->users()->count() > 0){
+            return redirect()->route('roles.show', $role)->with('error', 'El rol no se puede eliminar. Tiene usuarios asociados');
+        }
+
+        $role->delete();
+
+        return redirect()->route('roles.index', $role)->with('success', 'El rol se ha eliminado correctamente');
     }
 }
