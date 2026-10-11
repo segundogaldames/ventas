@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <h1>
-        Nuevo Rol
+        Nuevo Usuario
     </h1>
 @stop
 
@@ -12,10 +12,10 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('roles.store') }}" method="post">
+                <form action="{{ route('users.store') }}" method="post">
                     @csrf
-                    @include('roles.form')
-                    <x-back-button :route="route('roles.index')"></x-back-button>
+                    @include('users.form')
+                    <x-back-button :route="route('users.index')"></x-back-button>
                 </form>
             </div>
         </div>

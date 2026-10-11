@@ -26,6 +26,7 @@ Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.inde
 Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar');
 Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar');
 Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, 'eliminarUsuario'])->name('empresas.usuarios.destroy');
+Route::put('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore')->middleware('auth');
 
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
 Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia']);

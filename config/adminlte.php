@@ -805,7 +805,7 @@ return [
         ],
         [
             'text' => 'Usuarios',
-            'url' => 'admin/blog',
+            'route' => 'users.index',
             'icon' => 'bi bi-person',
         ],
         ['header' => 'account_settings'],

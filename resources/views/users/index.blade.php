@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'Roles')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <h1>
-        Roles
-        <a href="{{ route('roles.create') }}" class="btn btn-outline-secondary">Nuevo Rol</a>
+        Usuarios
+        <a href="{{ route('users.create') }}" class="btn btn-outline-secondary">Nuevo Usuario</a>
     </h1>
 @stop
 
@@ -22,17 +22,38 @@
                 <thead>
                     <tr>
                         <th class="col-2">Id</th>
-                        <td class="col-8">Rol</td>
+                        <td class="col-2">Nombre</td>
+                        <td class="col-2">Email</td>
+                        <td class="col-2">Rol</td>
+                        <td class="col-2">Estado</td>
                         <td class="col-2"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($roles as $role)
+                    @foreach ($users as $user)
                         <tr>
-                            <td> {{ $role->id }} </td>
-                            <td> {{ $role->name }} </td>
+                            <td> {{ $user->id }} </td>
+                            <td> {{ $user->name }} </td>
+                            <td> {{ $user->email }} </td>
+                            <td> {{ $user->roles->pluck('name')->first() ?? 'Sin rol' }} </td>
+                            <td>
+                                @if ($user->trashed())
+                                    <span class="badge bg-danger">Inactivo (Eliminado)</span>
+                                @else
+                                    <span class="badge bg-success">Activo</span>
+                                @endif
+                            </td>
                             <td class="d-flex justify-content-center gap-2">
-                                <x-show-button :route="route('roles.show', $role)" class="btn-sm"></x-show-button>
+                                @if ($user->trashed())
+                                    {{-- Si está inactivo, mostramos botón para RESTAURAR --}}
+                                    <form action="{{ route('users.restore', $user) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+                                    </form>
+                                @else
+                                    <x-show-button :route="route('users.show', $user)" class="btn-sm"></x-show-button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

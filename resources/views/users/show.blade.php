@@ -1,3 +1,4 @@
+
 @extends('adminlte::page')
 
 @push('styles')
@@ -5,11 +6,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
 @endpush
 
-@section('title', 'Roles')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <h1>
-        Detalle Rol
+        Detalle Usuario
     </h1>
 @stop
 
@@ -23,45 +24,61 @@
                 <table class="table table-hover">
                     <tr>
                         <th>Id:</th>
-                        <td> {{ $role->id }} </td>
+                        <td> {{ $user->id }} </td>
                     </tr>
                     <tr>
                         <th>Nombre:</th>
-                        <td> {{ $role->name }} </td>
+                        <td> {{ $user->name }} </td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td> {{ $user->email }} </td>
+                    </tr>
+                    <tr>
+                        <th>Rol:</th>
+                        <td> {{ $user->roles->pluck('name')->first() ?? 'Sin rol' }} </td>
                     </tr>
                     <tr>
                         <th>Creado:</th>
-                        <td> {{ $role->created_at->format('d/m/Y H:i') }} </td>
+                        <td> {{ $user->created_at->format('d/m/Y H:i') }} </td>
                     </tr>
                     <tr>
                         <th>Actualizado:</th>
-                        <td> {{ $role->updated_at->format('d/m/Y H:i') }} </td>
+                        <td> {{ $user->updated_at->format('d/m/Y H:i') }} </td>
+                    </tr>
+                    <tr>
+                        <th>Empresas:</th>
+                        <td>
+                            <ul class="list-unstyled mb-2">
+                                @forelse ($user->empresas as $empresa)
+                                    <li
+                                        class="d-flex align-items-center justify-content-between py-1 border-bottom">
+                                        <!-- Información del usuario en línea -->
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-building"></i>
+                                            <span class="fw-semibold">{{ $empresa->nombre }}</span>
+                                            <span class="text-muted small">({{ $empresa->email }})</span>
+                                        </div>
+
+                                        <!-- Botón de eliminar alineado a la derecha -->
+                                    </li>
+                                @empty
+                                    <li class="text-info">No hay empresas registradas para este usuario.</li>
+                                @endforelse
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="d-flex gap-2">
-            <x-back-button :route="route('roles.index')" class="my-2"></x-back-button>
-            <x-edit-button :route="route('roles.edit', $role)" class="my-2"></x-edit-button>
-            <form action="{{ route('roles.destroy', $role) }}" method="post"
-                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este rol?');">
+            <x-back-button :route="route('users.index')" class="my-2"></x-back-button>
+            <x-edit-button :route="route('users.edit', $user)" class="my-2"></x-edit-button>
+            <form action="{{ route('users.destroy', $user) }}" method="post"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger mt-2"><i class="bi bi-trash"></i></button>
             </form>
-        </div>
-        {{-- lista de provincias --}}
-        <div class="card">
-            <div class="card-title">
-                <h1 class="fs-3 m-3">
-                    Permisos de {{ $role->name }}
-                    <a href="#" class="btn btn-outline-secondary">Nuevo
-                        Permiso</a>
-                </h1>
-            </div>
-            <div class="card-body">
-
-            </div>
         </div>
     </div>
 

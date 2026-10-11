@@ -1,10 +1,12 @@
+{{-- @var \App\Models\User $user --}}
+{{-- @var \Illuminate\Database\Eloquent\Collection $users --}}
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <h1>
-        Editar Rol
+        Editar Usuario
     </h1>
 @stop
 
@@ -12,11 +14,11 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('roles.update', $role) }}" method="post">
+                <form action="{{ route('users.update', $user) }}" method="post">
                     @csrf
                     @method('PUT')
-                    @include('roles.form')
-                    <x-back-button :route="route('roles.show', $role)"></x-back-button>
+                    @include('users.form')
+                    <x-back-button :route="route('users.show', $user)"></x-back-button>
                 </form>
             </div>
         </div>
