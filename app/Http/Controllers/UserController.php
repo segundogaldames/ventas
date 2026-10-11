@@ -27,7 +27,7 @@ class UserController extends Controller
         $roles = Role::orderBy('name')->get();
         $task = 'create';
 
-        return view('users.create', compact('roles','task'));
+        return view('users.create', compact('roles', 'task'));
     }
 
     /**
@@ -36,10 +36,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required','min:3','max:255'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required','string','min:8','confirmed'],
-            'role' => ['required','exists:roles,name']
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'exists:roles,name']
         ]);
 
         $user = User::create([
@@ -50,7 +50,7 @@ class UserController extends Controller
 
         $user->assignRole($validated['role']);
 
-        return redirect()->route('users.index')->with('success','El usuario se ha registrado correctamente');
+        return redirect()->route('users.index')->with('success', 'El usuario se ha registrado correctamente');
     }
 
     /**
@@ -69,7 +69,7 @@ class UserController extends Controller
         $roles = Role::orderBy('name')->get();
         $task = 'edit';
 
-        return view('users.edit', compact('user','roles','task'));
+        return view('users.edit', compact('user', 'roles', 'task'));
     }
 
     /**
@@ -78,9 +78,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name' => ['required','min:3','max:255'],
-            'email' => ['required','email','unique:users,email,' . $user->id],
-            'role' => ['required','exists:roles,name']
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+            'role' => ['required', 'exists:roles,name']
         ]);
 
         $user->update([
@@ -90,7 +90,7 @@ class UserController extends Controller
 
         $user->syncRoles([$validated['role']]);
 
-        return redirect()->route('users.show', $user)->with('success','El usuario se ha modificado correctamente');
+        return redirect()->route('users.show', $user)->with('success', 'El usuario se ha modificado correctamente');
     }
 
     /**
