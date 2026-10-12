@@ -163,6 +163,10 @@
                                         class="btn btn-primary btn-sm">Agregar Usuario</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Categorías de Productos:</th>
+                                <td> <a href="{{route('categorias.categoriasEmpresa', $empresa)}}">Ver Categorías</a> </td>
+                            </tr>
                         </table>
 
                     </div>

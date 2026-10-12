@@ -801,7 +801,7 @@ return [
         [
             'text' => 'Roles',
             'route' => 'roles.index',
-            'icon' => 'bi bi-person',
+            'icon' => 'bi bi-person-check',
         ],
         [
             'text' => 'Usuarios',

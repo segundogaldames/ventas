@@ -95,6 +95,7 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * Borra de manera lógica al usuario
      */
     public function destroy(User $user)
     {
@@ -102,6 +103,9 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Usuario desactivado correctamente.');
     }
 
+    /**
+     * Restaura un usuario eliminado
+     */
     public function restore($id)
     {
         $user = User::withTrashed()->findOrFail($id);

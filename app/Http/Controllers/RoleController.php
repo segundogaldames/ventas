@@ -75,7 +75,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        if($role->users()->count() > 0){
+        if ($role->users()->exists()) {
             return redirect()->route('roles.show', $role)->with('error', 'El rol no se puede eliminar. Tiene usuarios asociados');
         }
 

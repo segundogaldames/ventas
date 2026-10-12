@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EmpresaTipoController;
@@ -22,6 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincias.index');
 Route::get('ciudades', [CiudadController::class, 'index'])->name('ciudades.index');
 Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index');
+Route::get('categorias/{empresa}/empresas', [CategoriaController::class, 'categoriasEmpresa'])->name('categorias.categoriasEmpresa')->middleware('auth');
 
 Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar');
 Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar');
@@ -35,6 +37,7 @@ Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTip
 Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa']);
 Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono']);
 Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto']);
+Route::resource('empresas.categorias', CategoriaController::class)->names('empresas.categorias')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'categorias' => 'categoria'])->middleware('auth');
 
 Route::resource('roles', RoleController::class)->names('roles')->middleware('auth');
 Route::resource('users', UserController::class)->names('users')->middleware('auth');

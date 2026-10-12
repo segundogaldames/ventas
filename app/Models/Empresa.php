@@ -28,6 +28,11 @@ class Empresa extends Model
         return $this->belongsTo(EmpresaTipo::class);
     }
 
+    public function categorias()
+    {
+        return $this->hasMany(Categoria::class);
+    }
+
     public function impuestos()
     {
         return $this->hasMany(Impuesto::class);
