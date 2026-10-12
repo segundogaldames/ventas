@@ -6,6 +6,7 @@
 <h1>
     Categorías de Productos
     <a href="{{ route('empresas.categorias.create', $empresa) }}" class="btn btn-outline-secondary">Nueva Categoría</a>
+    <a href="{{route('ciudades.empresas.show', $empresa)}}" class="btn btn-outline-primary">Volver a Empresa</a>
 </h1>
 @stop
 

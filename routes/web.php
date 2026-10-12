@@ -20,23 +20,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincias.index');
-Route::get('ciudades', [CiudadController::class, 'index'])->name('ciudades.index');
-Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index');
+Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincias.index')->middleware('auth');
+Route::get('ciudades', [CiudadController::class, 'index'])->name('ciudades.index')->middleware('auth');
+Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index')->middleware('auth');
 Route::get('categorias/{empresa}/empresas', [CategoriaController::class, 'categoriasEmpresa'])->name('categorias.categoriasEmpresa')->middleware('auth');
 
-Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar');
-Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar');
-Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, 'eliminarUsuario'])->name('empresas.usuarios.destroy');
+Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar')->middleware('auth');
+Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar')->middleware('auth');
+Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, 'eliminarUsuario'])->name('empresas.usuarios.destroy')->middleware('auth');
 Route::put('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore')->middleware('auth');
 
-Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais']);
-Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia']);
-Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->shallow()->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad']);
-Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTipos')->parameters(['empresaTipos' => 'empresaTipo']);
-Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa']);
-Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono']);
-Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto']);
+Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais'])->middleware('auth');
+Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia'])->middleware('auth');
+Route::resource('provincias.ciudades', CiudadController::class)->names('provincias.ciudades')->except(['index'])->shallow()->parameters(['provincias' => 'provincia', 'ciudades' => 'ciudad'])->middleware('auth');
+Route::resource('empresaTipos', EmpresaTipoController::class)->names('empresaTipos')->parameters(['empresaTipos' => 'empresaTipo'])->middleware('auth');
+Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.empresas')->except(['index'])->shallow()->parameters(['ciudades' => 'ciudad', 'empresas' => 'empresa'])->middleware('auth');
+Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono'])->middleware('auth');
+Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto'])->middleware('auth');
 Route::resource('empresas.categorias', CategoriaController::class)->names('empresas.categorias')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'categorias' => 'categoria'])->middleware('auth');
 
 Route::resource('roles', RoleController::class)->names('roles')->middleware('auth');

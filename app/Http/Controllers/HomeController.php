@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -27,6 +28,7 @@ class HomeController extends Controller
     {
         $total_roles = Role::count();
         $total_users = User::count();
-        return view('home', compact('total_roles', 'total_users'));
+        $total_empresas = Empresa::count();
+        return view('home', compact('total_roles', 'total_users', 'total_empresas'));
     }
 }

@@ -50,6 +50,24 @@
             </a>
             <!-- /.info-box -->
         </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <a href="{{ route('empresas.index') }}" class="text-decoration-none text-secondary">
+                <div class="info-box">
+                    <span class="info-box-icon text-bg-success shadow-sm">
+                    <i class="bi bi-building"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Empresas</span>
+                        <span class="info-box-number">
+                               {{$total_empresas}}
+                        </span>
+                    </div>
+                        <!-- /.info-box-content -->
+                </div>
+            </a>
+            <!-- /.info-box -->
+        </div>
     </div>
 @stop
 
