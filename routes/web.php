@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EmpresaTipoController;
 use App\Http\Controllers\ImpuestoController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TelefonoController;
@@ -38,6 +39,7 @@ Route::resource('ciudades.empresas', EmpresaController::class)->names('ciudades.
 Route::resource('empresas.telefonos', TelefonoController::class)->names('empresas.telefonos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'telefonos' => 'telefono'])->middleware('auth');
 Route::resource('empresas.impuestos', ImpuestoController::class)->names('empresas.impuestos')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'impuestos' => 'impuesto'])->middleware('auth');
 Route::resource('empresas.categorias', CategoriaController::class)->names('empresas.categorias')->except(['index'])->shallow()->parameters(['empresas' => 'empresa', 'categorias' => 'categoria'])->middleware('auth');
+Route::resource('categorias.productos', ProductoController::class)->names('categorias.productos')->except(['index'])->shallow()->parameters(['categorias' => 'categoria', 'productos' => 'producto'])->middleware('auth');
 
 Route::resource('roles', RoleController::class)->names('roles')->middleware('auth');
 Route::resource('users', UserController::class)->names('users')->middleware('auth');

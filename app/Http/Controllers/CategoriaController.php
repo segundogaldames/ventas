@@ -67,9 +67,9 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        // if ($categoria->productos()->exists()) {
-        //     return redirect()->route('empresas.categorias.show', $categoria)->with('error', 'Esta categoría no se puede eliminar. Tiene productos asociados');
-        // }
+        if ($categoria->productos()->exists()) {
+            return redirect()->route('empresas.categorias.show', $categoria)->with('error', 'Esta categoría no se puede eliminar. Tiene productos asociados');
+        }
 
         $categoria->delete();
 
