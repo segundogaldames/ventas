@@ -13,7 +13,8 @@ class ProductoController extends Controller
      */
     public function create(Categoria $categoria)
     {
-        return view('productos.create', compact('categoria'));
+        $task = 'create';
+        return view('productos.create', compact('categoria', 'task'));
     }
 
     /**
@@ -33,6 +34,11 @@ class ProductoController extends Controller
             'precio_venta' => ['required', 'numeric', 'min:0'],
         ]);
 
+        if ($request->hasFile('imagen')) {
+            // Esto lo guarda en storage/app/public/logos y devuelve la ruta relativa (ej: logos/xyz.png)
+            $validated['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
         $categoria->productos()->create($validated);
 
         return redirect()->route('empresas.categorias.show', $categoria)->with('success', 'El producto se ha registrado correctamente');
@@ -51,7 +57,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        $task = 'edit';
+        return view('productos.edit', compact('producto', 'task'));
     }
 
     /**
@@ -71,6 +78,14 @@ class ProductoController extends Controller
             'precio_venta' => ['required', 'numeric', 'min:0'],
         ]);
 
+        if ($request->hasFile('imagen')) {
+            if ($producto->imagen && \Illuminate\Support\Facades\Storage::disk('public')->exists($producto->imagen)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($producto->imagen);
+            }
+            // Esto lo guarda en storage/app/public/logos y devuelve la ruta relativa (ej: logos/xyz.png)
+            $validated['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
         $producto->update($validated);
 
         return redirect()->route('categorias.productos.show', $producto)->with('success', 'El producto se ha modificado correctamente');
@@ -81,6 +96,17 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //validar si el producto aparece en alguna compra
+        $producto->delete();
+
+        return redirect()->route('empresas.categorias.show', $producto->categoria)
+            ->with('success', 'El producto se ha enviado a la papelera correctamente.');
+    }
+
+    public function restore($id)
+    {
+        $producto = Producto::withTrashed()->findOrFail($id);
+        $producto->restore();
+
+        return redirect()->route('empresas.categorias.show', $producto->categoria)->with('success', 'Producto reactivado exitosamente.');
     }
 }

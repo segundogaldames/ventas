@@ -63,11 +63,51 @@
             <div class="card-title">
                 <h1 class="fs-3 m-3">
                     Productos de {{ $categoria->nombre }}
-
+                    <a href="{{ route('categorias.productos.create', $categoria) }}" class="btn btn-outline-secondary">Nuevo
+                        Producto</a>
                 </h1>
             </div>
             <div class="card-body">
-
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-2">Imagen</th>
+                            <th class="col-4">Producto</th>
+                            <th class="col-4">Código</th>
+                            <th class="col-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categoria->productos()->withTrashed()->get() as $producto)
+                            <tr>
+                                <td>
+                                    @if ($producto->imagen)
+                                    <!-- Muestra la imagen si existe -->
+                                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Imagen" width="30"
+                                            height="30" class="rounded-circle object-fit-cover w-10">
+                                    @else
+                                        <!-- Imagen por defecto si no tiene logo -->
+                                        <span class="badge bg-secondary">Sin imagen</span>
+                                    @endif
+                                </td>
+                                <td> {{$producto->nombre}} </td>
+                                <td> {{$producto->codigo}} </td>
+                                <td>
+                                    @if ($producto->trashed())
+                                        {{-- Si está inactivo, mostramos botón para RESTAURAR --}}
+                                        <form action="{{ route('productos.restore', $producto) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </form>
+                                    @else
+                                        <x-show-button :route="route('categorias.productos.show', $producto)" class="btn-sm"></x-show-button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
