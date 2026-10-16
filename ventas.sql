@@ -37,7 +37,7 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1791855281);
+INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1792198891);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +352,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +361,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,10 +545,11 @@ CREATE TABLE `productos` (
   `categoria_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `productos_categoria_id_foreign` (`categoria_id`),
   CONSTRAINT `productos_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -557,6 +558,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'Producto 1','Descripcion producto 1','P001','productos/u4ocQbtydKWlK7u9WqnybyWTmELDoe8tQHXDlv27.png',8,5,15,8990,12990,1,'2026-10-16 01:57:42','2026-10-16 02:59:08',NULL);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -669,7 +671,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('T3uIOiRTWero2MIkzOjYHJbxxl1ktsTTbJKeWmjD',1,'127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0','eyJfdG9rZW4iOiIxV1ZUU3JEUnRRU0VlNm1HMjkzQ3JleDZBYWpLN0c2T3loUWpaQXBnIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2VtcHJlc2FzXC8yIiwicm91dGUiOiJjaXVkYWRlcy5lbXByZXNhcy5zaG93In0sInVybCI6W10sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoxLCJhdXRoIjp7InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI6MTc5MTc3MjU1OX19',1791774860);
+INSERT INTO `sessions` VALUES ('aRDNn9q8KeUOCqKRw052wVHybT3bZDXjP8pPIBHT',1,'127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0','eyJfdG9rZW4iOiJWR2EwOGhnSVZVMkw4TGNQdWhmTXBxaU85YzE1YXFGM3daY015S09uIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jYXRlZ29yaWFzXC8xIiwicm91dGUiOiJlbXByZXNhcy5jYXRlZ29yaWFzLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTIxMTI0OTF9fQ==',1792119594);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -744,4 +746,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-12  0:17:02
+-- Dump completed on 2026-10-16  0:01:30
