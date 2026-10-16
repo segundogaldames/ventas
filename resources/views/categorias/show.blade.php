@@ -72,8 +72,9 @@
                     <thead>
                         <tr>
                             <th class="col-2">Imagen</th>
-                            <th class="col-4">Producto</th>
-                            <th class="col-4">Código</th>
+                            <th class="col-3">Producto</th>
+                            <th class="col-3">Código</th>
+                            <th class="col-3">Stock Disponible</th>
                             <th class="col-2"></th>
                         </tr>
                     </thead>
@@ -92,6 +93,15 @@
                                 </td>
                                 <td> {{$producto->nombre}} </td>
                                 <td> {{$producto->codigo}} </td>
+                                <td>
+                                    @if($producto->stock_disponible < $producto->stock_minimo)
+                                        <small class="d-block text-danger">⚠️ Stock bajo</small>
+                                    @elseif($producto->stock_disponible > $producto->stock_maximo)
+                                        <small class="d-block text-warning text-dark">⚠️ Sobre stock</small>
+                                    @else
+                                        <small class="d-block text-success text-dark">✅ Stock OK</small>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($producto->trashed())
                                         {{-- Si está inactivo, mostramos botón para RESTAURAR --}}

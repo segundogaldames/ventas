@@ -43,7 +43,19 @@
                             </tr>
                             <tr>
                                 <th>Stock disponible:</th>
-                                <td> {{$producto->stock_disponible}} </td>
+                                <td class="
+                                    @if($producto->stock_disponible < $producto->stock_minimo)
+                                                table-danger fw-bold text-danger
+                                    @elseif($producto->stock_disponible > $producto->stock_maximo)
+                                                table-warning fw-bold text-dark
+                                    @endif">
+                                        {{$producto->stock_disponible}}
+                                        @if($producto->stock_disponible < $producto->stock_minimo)
+                                            <small class="d-block text-danger">⚠️ Stock bajo</small>
+                                        @elseif($producto->stock_disponible > $producto->stock_maximo)
+                                            <small class="d-block text-warning text-dark">⚠️ Sobre stock</small>
+                                        @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th>Stock mínimo:</th>
