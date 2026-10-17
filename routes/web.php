@@ -25,6 +25,7 @@ Route::get('provincias', [ProvinciaController::class, 'index'])->name('provincia
 Route::get('ciudades', [CiudadController::class, 'index'])->name('ciudades.index')->middleware('auth');
 Route::get('empresas', [EmpresaController::class, 'index'])->name('empresas.index')->middleware('auth');
 Route::get('categorias/{empresa}/empresas', [CategoriaController::class, 'categoriasEmpresa'])->name('categorias.categoriasEmpresa')->middleware('auth');
+Route::get('productos/{empresa}/empresas', [ProductoController::class, 'productosEmpresa'])->name('productos.productosEmpresa')->middleware('auth');
 
 Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar')->middleware('auth');
 Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar')->middleware('auth');

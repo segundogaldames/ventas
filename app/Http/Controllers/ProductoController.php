@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Empresa;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -108,5 +109,12 @@ class ProductoController extends Controller
         $producto->restore();
 
         return redirect()->route('empresas.categorias.show', $producto->categoria)->with('success', 'Producto reactivado exitosamente.');
+    }
+
+    public function productosEmpresa(Empresa $empresa)
+    {
+        $productos = $empresa->productos;
+
+        return view('productos.productosEmpresa', compact('productos'));
     }
 }

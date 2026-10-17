@@ -52,4 +52,9 @@ class Empresa extends Model
     {
         return $this->belongsToMany(User::class, 'empresa_user');
     }
+
+    public function productos()
+    {
+        return $this->hasManyThrough(Producto::class, Categoria::class);
+    }
 }

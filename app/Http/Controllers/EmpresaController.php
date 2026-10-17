@@ -63,7 +63,10 @@ class EmpresaController extends Controller
      */
     public function show(Empresa $empresa)
     {
-        return view('empresas.show', compact('empresa'));
+        $total_users = $empresa->usuarios()->count();
+        $total_categorias = $empresa->categorias()->count();
+        $total_productos = $empresa->productos()->count();
+        return view('empresas.show', compact('empresa', 'total_users', 'total_categorias', 'total_productos'));
     }
 
     /**
