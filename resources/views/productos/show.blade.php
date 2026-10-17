@@ -38,6 +38,10 @@
                                 <td> {{$producto->codigo}} </td>
                             </tr>
                             <tr>
+                                <th>Categoría:</th>
+                                <td> {{$producto->categoria->nombre}} </td>
+                            </tr>
+                            <tr>
                                 <th>Descripción:</th>
                                 <td> {{$producto->descripcion}} </td>
                             </tr>
@@ -67,11 +71,11 @@
                             </tr>
                             <tr>
                                 <th>Precio de compra:</th>
-                                <td>$ {{$producto->precio_compra}} </td>
+                                <td>$ {{number_format($producto->precio_compra,0,',','.')}} </td>
                             </tr>
                             <tr>
                                 <th>Precio de venta:</th>
-                                <td>$ {{$producto->precio_venta}} </td>
+                                <td>$ {{number_format($producto->precio_venta,0,',','.')}} </td>
                             </tr>
                             <tr>
                                 <th>Creado:</th>

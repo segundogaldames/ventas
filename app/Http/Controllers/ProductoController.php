@@ -29,9 +29,9 @@ class ProductoController extends Controller
             'imagen' => ['nullable', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'stock_disponible' => ['required', 'numeric', 'min:0'],
             'stock_minimo' => ['required', 'numeric', 'min:0'],
-            'stock_maximo' => ['required', 'numeric', 'min:0'],
+            'stock_maximo' => ['required', 'numeric', 'min:0', 'gte:stock_minimo'],
             'precio_compra' => ['required', 'numeric', 'min:0'],
-            'precio_venta' => ['required', 'numeric', 'min:0'],
+            'precio_venta' => ['required', 'numeric', 'min:0', 'gte:precio_compra'],
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -73,9 +73,9 @@ class ProductoController extends Controller
             'imagen' => ['nullable', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'stock_disponible' => ['required', 'numeric', 'min:0'],
             'stock_minimo' => ['required', 'numeric', 'min:0'],
-            'stock_maximo' => ['required', 'numeric', 'min:0'],
+            'stock_maximo' => ['required', 'numeric', 'min:0', 'gte:stock_minimo'],
             'precio_compra' => ['required', 'numeric', 'min:0'],
-            'precio_venta' => ['required', 'numeric', 'min:0'],
+            'precio_venta' => ['required', 'numeric', 'min:0', 'gte:precio_compra'],
         ]);
 
         if ($request->hasFile('imagen')) {
