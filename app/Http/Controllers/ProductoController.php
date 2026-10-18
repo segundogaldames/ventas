@@ -115,6 +115,6 @@ class ProductoController extends Controller
     {
         $productos = $empresa->productos;
 
-        return view('productos.productosEmpresa', compact('productos'));
+        return view('productos.productosEmpresa', compact('productos', 'empresa'));
     }
 }

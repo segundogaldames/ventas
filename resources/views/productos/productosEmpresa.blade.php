@@ -5,6 +5,7 @@
 @section('content_header')
     <h1>
         Nuevo Producto
+        <a href="{{ route('ciudades.empresas.show', $empresa) }}" class="btn btn-outline-primary">Volver</a>
     </h1>
 @stop
 
