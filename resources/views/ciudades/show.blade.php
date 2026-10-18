@@ -10,7 +10,8 @@
 @stop
 
 @section('content')
-    <div class="col-md-8 offset-md-2">
+<div class="row">
+    <div class="col-md-6">
         @include('partials.messages')
         <div class="card">
             <div class="card-body">
@@ -52,18 +53,48 @@
                 <button type="submit" class="btn btn-danger mt-2"><i class="bi bi-trash"></i></button>
             </form>
         </div>
-        {{-- lista de empresas --}}
-        <div class="card">
-            <div class="card-title">
-                <h1 class="fs-3 m-3">
-                    Empresas de {{ $ciudad->nombre }}
-                    <a href="{{ route('ciudades.empresas.create', $ciudad) }}" class="btn btn-outline-secondary">Nueva
-                        Empresa</a>
-                </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4">
+                <a href="{{ route('empresas.empresasCiudad', $ciudad) }}" class="text-decoration-none text-secondary">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-success shadow-sm">
+                        <i class="bi bi-building-check"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Empresas</span>
+                            <span class="info-box-number">
+                                   {{$total_empresas}}
+                            </span>
+                        </div>
+                            <!-- /.info-box-content -->
+                    </div>
+                </a>
+                <!-- /.info-box -->
             </div>
-            <div class="card-body"></div>
+            <div class="col-12 col-sm-6 col-md-4">
+                <a href="{{ route('proveedores.proveedoresCiudad', $ciudad) }}" class="text-decoration-none text-secondary">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-primary shadow-sm">
+                        <i class="bi bi-building-add"></i>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Proveedores</span>
+                            <span class="info-box-number">
+                                   {{$total_proveedores}}
+                            </span>
+                        </div>
+                            <!-- /.info-box-content -->
+                    </div>
+                </a>
+                <!-- /.info-box -->
+            </div>
         </div>
     </div>
+</div>
 @stop
 
 @section('css')

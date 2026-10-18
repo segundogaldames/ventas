@@ -42,7 +42,9 @@ class CiudadController extends Controller
      */
     public function show(Ciudad $ciudad)
     {
-        return view('ciudades.show', compact('ciudad'));
+        $total_empresas = $ciudad->empresas()->count();
+        $total_proveedores = $ciudad->proveedores()->count();
+        return view('ciudades.show', compact('ciudad', 'total_empresas', 'total_proveedores'));
     }
 
     /**

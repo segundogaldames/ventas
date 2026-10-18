@@ -150,4 +150,11 @@ class EmpresaController extends Controller
 
         return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'El usuario se ha eliminado de la empresa correctamente');
     }
+
+    public function empresasCiudad(Ciudad $ciudad)
+    {
+        $empresas = $ciudad->empresas;
+
+        return view('empresas.empresasCiudad', compact('empresas', 'ciudad'));
+    }
 }

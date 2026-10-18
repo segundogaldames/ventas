@@ -835,6 +835,11 @@ return [
                     'icon' => 'bi bi-building-add'
                 ],
                 [
+                    'text' => 'Proveedores',
+                    'route' => 'proveedores.index',
+                    'icon' => 'bi bi-building-add'
+                ],
+                [
                     'text' => 'Ubicaciones',
                     'url' => '#',
                     'icon' => 'bi bi-geo-alt',
