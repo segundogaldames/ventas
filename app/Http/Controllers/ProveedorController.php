@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudad;
+use App\Models\Empresa;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use App\Rules\ValidateRut;
@@ -87,6 +88,13 @@ class ProveedorController extends Controller
         $proveedores = $ciudad->proveedores()->withTrashed()->get();
 
         return view('proveedores.proveedoresCiudad', compact('proveedores', 'ciudad'));
+    }
+
+    public function proveedoresEmpresa(Empresa $empresa)
+    {
+        $proveedores = $empresa->proveedores()->withTrashed()->get();
+
+        return view('proveedores.proveedoresEmpresa', compact('proveedores', 'empresa'));
     }
 
     public function restore($id)

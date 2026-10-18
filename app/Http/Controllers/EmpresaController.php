@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ciudad;
 use App\Models\Empresa;
 use App\Models\EmpresaTipo;
+use App\Models\Proveedor;
 use App\Models\User;
 use App\Rules\ValidateRut;
 use Illuminate\Http\Request;
@@ -66,7 +67,8 @@ class EmpresaController extends Controller
         $total_users = $empresa->usuarios()->count();
         $total_categorias = $empresa->categorias()->count();
         $total_productos = $empresa->productos()->count();
-        return view('empresas.show', compact('empresa', 'total_users', 'total_categorias', 'total_productos'));
+        $total_proveedores = $empresa->proveedores()->count();
+        return view('empresas.show', compact('empresa', 'total_users', 'total_categorias', 'total_productos', 'total_proveedores'));
     }
 
     /**
@@ -124,6 +126,24 @@ class EmpresaController extends Controller
         $empresa->usuarios()->syncWithoutDetaching($validated['user_id']);
 
         return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'El usuario se ha asociado a la empresa correctamente');
+    }
+
+    public function asignarProveedor(Empresa $empresa)
+    {
+        $proveedores = Proveedor::all();
+
+        return view('empresas.asignarProveedor', compact('proveedores', 'empresa'));
+    }
+
+    public function registrarProveedor(Request $request, Empresa $empresa)
+    {
+        $validated = $request->validate([
+            'proveedor_id' => ['required', 'numeric', 'exists:proveedores,id']
+        ]);
+
+        $empresa->proveedores()->syncWithoutDetaching($validated['proveedor_id']);
+
+        return redirect()->route('ciudades.empresas.show', $empresa)->with('success', 'El proveedor se ha asociado a la empresa correctamente');
     }
 
     /**

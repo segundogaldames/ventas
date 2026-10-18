@@ -238,6 +238,24 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="{{ route('proveedores.proveedoresEmpresa', $empresa) }}" class="text-decoration-none text-secondary">
+                        <div class="info-box">
+                            <span class="info-box-icon text-bg-warning shadow-sm">
+                            <i class="bi bi-building-add"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Proveedores</span>
+                                <span class="info-box-number">
+                                       {{$total_proveedores}}
+                                </span>
+                            </div>
+                                <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
             </div>
         </div>
     </div>

@@ -30,9 +30,12 @@ Route::get('categorias/{empresa}/empresas', [CategoriaController::class, 'catego
 Route::get('productos/{empresa}/empresas', [ProductoController::class, 'productosEmpresa'])->name('productos.productosEmpresa')->middleware('auth');
 Route::get('empresas/{ciudad}/ciudades', [EmpresaController::class, 'empresasCiudad'])->name('empresas.empresasCiudad')->middleware('auth');
 Route::get('proveedores/{ciudad}/proveedores', [ProveedorController::class, 'proveedoresCiudad'])->name('proveedores.proveedoresCiudad')->middleware('auth');
+Route::get('proveedores/{empresa}/empresas', [ProveedorController::class, 'proveedoresEmpresa'])->name('proveedores.proveedoresEmpresa')->middleware('auth');
 
 Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar')->middleware('auth');
 Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar')->middleware('auth');
+Route::get('empresas/{empresa}/proveedores', [EmpresaController::class, 'asignarProveedor'])->name('empresas.proveedores.asignarProveedor')->middleware('auth');
+Route::post('empresas/{empresa}/proveedores', [EmpresaController::class, 'registrarProveedor'])->name('empresas.proveedores.registrarProveedor')->middleware('auth');
 Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, 'eliminarUsuario'])->name('empresas.usuarios.destroy')->middleware('auth');
 Route::put('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore')->middleware('auth');
 Route::put('productos/{producto}/restore', [ProductoController::class, 'restore'])->name('productos.restore')->middleware('auth');
