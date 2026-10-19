@@ -37,7 +37,7 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1792198891);
+INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1792421203);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +83,7 @@ CREATE TABLE `categorias` (
   PRIMARY KEY (`id`),
   KEY `categorias_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `categorias_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Electrónica','Productos electrónicos','2026-10-12 01:56:31','2026-10-12 02:03:41',2);
+INSERT INTO `categorias` VALUES (1,'Electrónica','Productos electrónicos','2026-10-12 01:56:31','2026-10-12 02:03:41',2),(4,'Computación','Productos de computación','2026-10-17 01:45:12','2026-10-17 01:45:12',2);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,6 +123,37 @@ LOCK TABLES `ciudades` WRITE;
 /*!40000 ALTER TABLE `ciudades` DISABLE KEYS */;
 INSERT INTO `ciudades` VALUES (1,'Santiago',1,'2026-09-27 01:18:29','2026-09-27 01:28:37'),(4,'San Miguel',1,'2026-09-27 17:38:39','2026-09-27 17:38:39'),(5,'Copiapó',3,'2026-09-27 17:39:29','2026-09-27 17:39:29');
 /*!40000 ALTER TABLE `ciudades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `empresa_proveedor`
+--
+
+DROP TABLE IF EXISTS `empresa_proveedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `empresa_proveedor` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `empresa_id` bigint unsigned NOT NULL,
+  `proveedor_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `empresa_proveedor_empresa_id_foreign` (`empresa_id`),
+  KEY `empresa_proveedor_proveedor_id_foreign` (`proveedor_id`),
+  CONSTRAINT `empresa_proveedor_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `empresa_proveedor_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empresa_proveedor`
+--
+
+LOCK TABLES `empresa_proveedor` WRITE;
+/*!40000 ALTER TABLE `empresa_proveedor` DISABLE KEYS */;
+INSERT INTO `empresa_proveedor` VALUES (1,2,2,NULL,NULL);
+/*!40000 ALTER TABLE `empresa_proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -207,7 +238,7 @@ CREATE TABLE `empresas` (
   KEY `empresas_empresa_tipo_id_foreign` (`empresa_tipo_id`),
   CONSTRAINT `empresas_ciudad_id_foreign` FOREIGN KEY (`ciudad_id`) REFERENCES `ciudades` (`id`),
   CONSTRAINT `empresas_empresa_tipo_id_foreign` FOREIGN KEY (`empresa_tipo_id`) REFERENCES `empresa_tipos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +247,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (2,'11983017-6','Profesor Galdames','cursos@profesorgaldames.cl','https://profesorgaldames.cl','Rembrand 1014','1235678','logos/NDSr5Kwjxi8G5G5wVx6w0LTsEzNBvCbquWwjWN24.jpg',1,1,'2026-09-27 21:24:39','2026-10-06 18:18:56');
+INSERT INTO `empresas` VALUES (2,'11983017-6','Profesor Galdames','cursos@profesorgaldames.cl','https://profesorgaldames.cl','Rembrand 1014','1235678','logos/NDSr5Kwjxi8G5G5wVx6w0LTsEzNBvCbquWwjWN24.jpg',1,1,'2026-09-27 21:24:39','2026-10-06 18:18:56'),(3,'78900678-4','Empresa 2','empresa2@empresa2.com','https://empresa2.com','Los mañios 222','123456','logos/iUhDpdoMUCXsYqhGhIlgaStuJPN1Darwg7f4CFGq.png',1,5,'2026-10-18 18:34:26','2026-10-18 18:34:26');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +383,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +392,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8),(21,'2026_10_18_121342_create_proveedores_table',9),(22,'2026_10_18_133059_add_deleted_at_to_proveedores_table',10),(23,'2026_10_18_165757_create_empresa_proveedor_table',11);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,7 +580,7 @@ CREATE TABLE `productos` (
   PRIMARY KEY (`id`),
   KEY `productos_categoria_id_foreign` (`categoria_id`),
   CONSTRAINT `productos_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -558,8 +589,41 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,'Producto 1','Descripcion producto 1','P001','productos/u4ocQbtydKWlK7u9WqnybyWTmELDoe8tQHXDlv27.png',8,5,15,8990,12990,1,'2026-10-16 01:57:42','2026-10-16 02:59:08',NULL);
+INSERT INTO `productos` VALUES (1,'Producto 1','Descripcion producto 1','P001','productos/u4ocQbtydKWlK7u9WqnybyWTmELDoe8tQHXDlv27.png',8,5,10,8990,8990,1,'2026-10-16 01:57:42','2026-10-17 01:42:45',NULL),(2,'Producto 2','Producto 2','P0002','productos/4fejHrRiXX70IHaXAc61qn2AougQsYp2o0wnmmlf.png',12,6,15,6790,9990,4,'2026-10-17 01:46:02','2026-10-17 01:50:07',NULL);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `proveedores`
+--
+
+DROP TABLE IF EXISTS `proveedores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `proveedores` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `rut` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direccion` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ciudad_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `proveedores_ciudad_id_foreign` (`ciudad_id`),
+  CONSTRAINT `proveedores_ciudad_id_foreign` FOREIGN KEY (`ciudad_id`) REFERENCES `ciudades` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proveedores`
+--
+
+LOCK TABLES `proveedores` WRITE;
+/*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
+INSERT INTO `proveedores` VALUES (1,'55678900-2','Proveedor 1','proveedor1@proveedor1.cl','Maria de los Angeles 2',1,'2026-10-18 19:00:06','2026-10-18 20:01:45','2026-10-18 20:01:45'),(2,'44900456-6','Proveedor 2','proveedor2@proveedor2.com','camilo henriquez 999',1,'2026-10-18 19:02:53','2026-10-18 20:02:33',NULL);
+/*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -671,7 +735,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('aRDNn9q8KeUOCqKRw052wVHybT3bZDXjP8pPIBHT',1,'127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:157.0) Gecko/20100101 Firefox/157.0','eyJfdG9rZW4iOiJWR2EwOGhnSVZVMkw4TGNQdWhmTXBxaU85YzE1YXFGM3daY015S09uIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jYXRlZ29yaWFzXC8xIiwicm91dGUiOiJlbXByZXNhcy5jYXRlZ29yaWFzLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTIxMTI0OTF9fQ==',1792119594);
+INSERT INTO `sessions` VALUES ('G88COJgOdXcVgvfKpQ5HHCupkZrWiqAhifR2mu5Z',1,'127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:158.0) Gecko/20100101 Firefox/158.0','eyJfdG9rZW4iOiJZVmZLb2xBNGsxTUdDSVQzdlhPVW51YkRYb2lOYUFpdmpYdE00WlJ6IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9wcm92ZWVkb3Jlc1wvMlwvZW1wcmVzYXMiLCJyb3V0ZSI6InByb3ZlZWRvcmVzLnByb3ZlZWRvcmVzRW1wcmVzYSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoxLCJhdXRoIjp7InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI6MTc5MjMzNDgwM319',1792353821);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -733,7 +797,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'segundo galdames','segundogaldames@gmail.com',NULL,'$2y$12$LW4TEPqFqyg1lIgIpFHCu.P2iqqTqXBjuuPMIc0YpWIAvlQLOqVZS',NULL,'2026-09-20 04:06:17','2026-09-20 04:06:17',NULL),(2,'Javiera Galdames','javiera@javiera.cl',NULL,'$2y$12$6DtNiI8B61d1Jmz5ZUbPfevcw3yUMXmH6oGO3L3elNAXkEOvTBZF2',NULL,'2026-10-11 00:49:37','2026-10-11 01:45:02',NULL);
+INSERT INTO `users` VALUES (1,'segundo galdames','segundogaldames@gmail.com',NULL,'$2y$12$LW4TEPqFqyg1lIgIpFHCu.P2iqqTqXBjuuPMIc0YpWIAvlQLOqVZS',NULL,'2026-09-20 04:06:17','2026-09-20 04:06:17',NULL),(2,'Javiera Galdames','javiera@javiera.cl',NULL,'$2y$12$6DtNiI8B61d1Jmz5ZUbPfevcw3yUMXmH6oGO3L3elNAXkEOvTBZF2',NULL,'2026-10-11 00:49:37','2026-10-18 16:29:25',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -746,4 +810,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-16  0:01:30
+-- Dump completed on 2026-10-19  1:06:50
