@@ -840,6 +840,11 @@ return [
                     'icon' => 'bi bi-building-add'
                 ],
                 [
+                    'text' => 'Módulos',
+                    'route' => 'modulos.index',
+                    'icon' => 'bi bi-boxes'
+                ],
+                [
                     'text' => 'Ubicaciones',
                     'url' => '#',
                     'icon' => 'bi bi-geo-alt',

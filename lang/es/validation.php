@@ -10,6 +10,7 @@ return [
         'email'    => 'correo electrónico',
         'password' => 'contraseña',
     ],
+    'unique' => 'El campo :attribute ya existe',
     'custom' => [
         'precio_venta' => [
             'gte' => 'El precio de venta no puede ser menor que el precio de compra.',
