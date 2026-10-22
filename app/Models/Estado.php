@@ -19,6 +19,6 @@ class Estado extends Model
 
     public function modulo()
     {
-        return $this->belongsTo(Estado::class);
+        return $this->belongsTo(Modulo::class);
     }
 }

@@ -64,7 +64,24 @@
                 </h1>
             </div>
             <div class="card-body">
-
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($modulo->estados as $estado)
+                            <tr>
+                                <td>{{ $estado->codigo }}</td>
+                                <td>{{ $estado->nombre }}</td>
+                                <td><x-show-button :route="route('modulos.estados.show', $estado)" class="btn-sm"></x-show-button></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

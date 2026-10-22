@@ -80,6 +80,6 @@ class EstadoController extends Controller
 
         $estado->delete();
 
-        return redirect()->route('modulos.estados.show' . $estado->modulo)->with('El estado se ha eliminado correctamente');
+        return redirect()->route('modulos.show', $estado->modulo)->with('success', 'El estado se ha eliminado correctamente');
     }
 }
