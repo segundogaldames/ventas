@@ -77,6 +77,10 @@ class ModuloController extends Controller
     public function destroy(Modulo $modulo)
     {
         //verificar si el modulo tiene estados asociados
+        if ($modulo->estados()->exists()) {
+            return redirect()->route('modulos.show', $modulo)->with('error', 'Este módulo no se puede eliminar. Tiene estados asociados');
+        }
+
         $modulo->delete();
 
         return redirect()->route('modulos.index')->with('success', 'El módulo se eliminado correctamente');

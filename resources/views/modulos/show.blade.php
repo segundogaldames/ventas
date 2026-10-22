@@ -59,7 +59,7 @@
             <div class="card-title">
                 <h1 class="fs-3 m-3">
                     Estados del módulo {{ $modulo->nombre }}
-                    <a href="#" class="btn btn-outline-secondary">Nuevo
+                    <a href="{{ route('modulos.estados.create', $modulo) }}" class="btn btn-outline-secondary">Nuevo
                         Estado</a>
                 </h1>
             </div>

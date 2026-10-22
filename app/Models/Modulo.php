@@ -16,4 +16,9 @@ class Modulo extends Model
             set: fn(string $value) => Str::title(mb_strtolower($value))
         );
     }
+
+    public function estados()
+    {
+        return $this->hasMany(Estado::class);
+    }
 }
