@@ -138,15 +138,18 @@ CREATE TABLE `compras` (
   `num_factura` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` int NOT NULL,
   `empresa_id` bigint unsigned NOT NULL,
+  `estado_id` bigint unsigned NOT NULL,
   `proveedor_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `compras_empresa_id_foreign` (`empresa_id`),
   KEY `compras_proveedor_id_foreign` (`proveedor_id`),
+  KEY `compras_estado_id_foreign` (`estado_id`),
   CONSTRAINT `compras_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `compras_estado_id_foreign` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
   CONSTRAINT `compras_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +158,7 @@ CREATE TABLE `compras` (
 
 LOCK TABLES `compras` WRITE;
 /*!40000 ALTER TABLE `compras` DISABLE KEYS */;
+INSERT INTO `compras` VALUES (2,'2026-10-21','1234',0,2,5,2,'2026-10-23 00:01:11','2026-10-23 00:01:11');
 /*!40000 ALTER TABLE `compras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +450,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,7 +459,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8),(21,'2026_10_18_121342_create_proveedores_table',9),(22,'2026_10_18_133059_add_deleted_at_to_proveedores_table',10),(23,'2026_10_18_165757_create_empresa_proveedor_table',11),(24,'2026_10_19_220917_create_compras_table',12),(25,'2026_10_19_230109_add_num_factura_to_compras_table',13),(26,'2026_10_19_232032_create_modulos_table',14),(27,'2026_10_21_220751_create_estados_table',15);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8),(21,'2026_10_18_121342_create_proveedores_table',9),(22,'2026_10_18_133059_add_deleted_at_to_proveedores_table',10),(23,'2026_10_18_165757_create_empresa_proveedor_table',11),(24,'2026_10_19_220917_create_compras_table',12),(25,'2026_10_19_230109_add_num_factura_to_compras_table',13),(26,'2026_10_19_232032_create_modulos_table',14),(27,'2026_10_21_220751_create_estados_table',15),(29,'2026_10_22_113438_add_estado_to_compras_table',16);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -825,7 +829,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('Kyfr0INWVxPLBz0RNjzjPpxlYE0rOZbPbgPRrpJT',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJwNW5WcFZhb0ptR0Nab0FPcjhVeEp2WEl4YW4yY1pOcGdSRjRpVjM3IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9tb2R1bG9zXC8xIiwicm91dGUiOiJtb2R1bG9zLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTI2MzExNjR9fQ==',1792634376);
+INSERT INTO `sessions` VALUES ('cNu6GFEEpg16U2IHpyRLfF0DnnxtLPsy8xIPiA9Y',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJnWkVDcGY2d1RsdVU0cGdyM2dkejJZbzhjc3BjV1B2V2xaZmVjNEVSIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jb21wcmFzXC8yXC9lbXByZXNhcyIsInJvdXRlIjoiY29tcHJhcy5jb21wcmFzRW1wcmVzYSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoxLCJhdXRoIjp7InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI6MTc5MjcxMDAzMH19',1792713680),('Kyfr0INWVxPLBz0RNjzjPpxlYE0rOZbPbgPRrpJT',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJwNW5WcFZhb0ptR0Nab0FPcjhVeEp2WEl4YW4yY1pOcGdSRjRpVjM3IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9tb2R1bG9zXC8xIiwicm91dGUiOiJtb2R1bG9zLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTI2MzExNjR9fQ==',1792634376);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -900,4 +904,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-21 23:01:51
+-- Dump completed on 2026-10-22 21:59:57
