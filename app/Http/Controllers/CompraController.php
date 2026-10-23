@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Compra;
 use App\Models\Empresa;
+use App\Models\Estado;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -23,8 +24,9 @@ class CompraController extends Controller
     public function create(Empresa $empresa)
     {
         $proveedores = $empresa->proveedores;
+        $action = 'create';
 
-        return view('compras.create', compact('proveedores', 'empresa'));
+        return view('compras.create', compact('proveedores', 'empresa', 'action'));
     }
 
     /**
@@ -40,9 +42,13 @@ class CompraController extends Controller
             }),]
         ]);
 
+        $validated['total'] = 0;
+        $estado = Estado::where('nombre', 'En Proceso')->firstOrFail();
+        $validated['estado_id'] = $estado->id;
+
         $empresa->compras()->create($validated);
 
-        return redirect()->route('ciudades.empresas', $empresa)->with('success', 'La compra se ha registrado correctamente');
+        return redirect()->route('compras.comprasEmpresa', $empresa)->with('success', 'La compra se ha registrado correctamente');
     }
 
     /**
@@ -58,7 +64,15 @@ class CompraController extends Controller
      */
     public function edit(Compra $compra)
     {
-        return view('compras.edit', compact('compra'));
+        $proveedores = $compra->empresa->proveedores;
+
+        //validamos que haya detalle de compra antes de mostrar los estados
+        $estados = Estado::whereHas('modulo', function ($query) {
+            $query->where('nombre', 'Compras'); // O 'slug' => 'compras'
+        })->get();
+        $action = 'edit';
+
+        return view('compras.edit', compact('compra', 'proveedores', 'estados', 'action'));
     }
 
     /**
@@ -66,7 +80,18 @@ class CompraController extends Controller
      */
     public function update(Request $request, Compra $compra)
     {
-        //
+        $validated = $request->validate([
+            'fecha' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today'],
+            'num_factura' => ['required', 'min:3'],
+            'proveedor_id' => ['required', Rule::exists('empresa_proveedor', 'proveedor_id')->where(function ($query) use ($compra) {
+                return $query->where('empresa_id', $compra->empresa->id);
+            }),],
+            'estado_id' => ['required', 'exists:estados,id']
+        ]);
+
+        $compra->update($validated);
+
+        return redirect()->route('empresas.compras.show', $compra)->with('success', 'La compra se ha modificado correctamente');
     }
 
     /**
@@ -74,6 +99,17 @@ class CompraController extends Controller
      */
     public function destroy(Compra $compra)
     {
-        //
+        //validar que no haya detalles de compras asociados
+
+        $compra->delete();
+
+        return redirect()->route('compras.comprasEmpresa', $compra->empresa)->with('success', 'La compra se ha eliminado correctamente');
+    }
+
+    public function comprasEmpresa(Empresa $empresa)
+    {
+        $compras = $empresa->compras;
+
+        return view('compras.comprasEmpresa', compact('empresa', 'compras'));
     }
 }

@@ -21,4 +21,9 @@ class Estado extends Model
     {
         return $this->belongsTo(Modulo::class);
     }
+
+    public function compras()
+    {
+        return $this->hasMany(Compra::class);
+    }
 }

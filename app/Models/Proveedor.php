@@ -24,4 +24,9 @@ class Proveedor extends Model
     {
         return $this->belongsTo(Ciudad::class);
     }
+
+    public function compras()
+    {
+        return $this->hasMany(Compra::class);
+    }
 }

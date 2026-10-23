@@ -34,6 +34,7 @@ Route::get('productos/{empresa}/empresas', [ProductoController::class, 'producto
 Route::get('empresas/{ciudad}/ciudades', [EmpresaController::class, 'empresasCiudad'])->name('empresas.empresasCiudad')->middleware('auth');
 Route::get('proveedores/{ciudad}/proveedores', [ProveedorController::class, 'proveedoresCiudad'])->name('proveedores.proveedoresCiudad')->middleware('auth');
 Route::get('proveedores/{empresa}/empresas', [ProveedorController::class, 'proveedoresEmpresa'])->name('proveedores.proveedoresEmpresa')->middleware('auth');
+Route::get('compras/{empresa}/empresas', [CompraController::class, 'comprasEmpresa'])->name('compras.comprasEmpresa')->middleware('auth');
 
 Route::get('empresas/{empresa}/usuarios', [EmpresaController::class, 'asignarUsuario'])->name('empresas.usuarios.asignar')->middleware('auth');
 Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'registrarUsuario'])->name('empresas.usuarios.registrar')->middleware('auth');

@@ -6,6 +6,7 @@ return [
     'min'      => [
         'string' => 'El campo :attribute debe tener al menos :min caracteres.',
     ],
+    'before_or_equal' => 'El campo :attribute debe ser una fecha anterior o igual a hoy.',
     'attributes' => [
         'email'    => 'correo electrónico',
         'password' => 'contraseña',

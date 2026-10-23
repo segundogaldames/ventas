@@ -256,6 +256,24 @@
                     </a>
                     <!-- /.info-box -->
                 </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="{{ route('compras.comprasEmpresa', $empresa) }}" class="text-decoration-none text-secondary">
+                        <div class="info-box">
+                            <span class="info-box-icon text-bg-secondary shadow-sm">
+                            <i class="bi bi-building-add"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Compras</span>
+                                <span class="info-box-number">
+                                       {{$total_compras}}
+                                </span>
+                            </div>
+                                <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
             </div>
         </div>
     </div>

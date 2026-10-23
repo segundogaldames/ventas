@@ -68,7 +68,9 @@ class EmpresaController extends Controller
         $total_categorias = $empresa->categorias()->count();
         $total_productos = $empresa->productos()->count();
         $total_proveedores = $empresa->proveedores()->count();
-        return view('empresas.show', compact('empresa', 'total_users', 'total_categorias', 'total_productos', 'total_proveedores'));
+        $total_compras = $empresa->compras()->count();
+
+        return view('empresas.show', compact('empresa', 'total_users', 'total_categorias', 'total_productos', 'total_proveedores', 'total_compras'));
     }
 
     /**
