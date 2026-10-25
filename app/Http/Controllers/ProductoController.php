@@ -117,4 +117,22 @@ class ProductoController extends Controller
 
         return view('productos.productosEmpresa', compact('productos', 'empresa'));
     }
+
+    public function asignarProveedor(Producto $producto)
+    {
+        $proveedores = $producto->categoria->empresa->proveedores;
+
+        return view('productos.asignarProveedor', compact('producto', 'proveedores'));
+    }
+
+    public function registrarProveedor(Request $request, Producto $producto)
+    {
+        $validated = $request->validate([
+            'proveedor_id' => ['required', 'exists:proveedores,id']
+        ]);
+
+        $producto->proveedores()->syncWithoutDetaching($validated['proveedor_id']);
+
+        return redirect()->route('categorias.productos.show', $producto)->with('success', 'El proveedor se ha asociado correctamente');
+    }
 }

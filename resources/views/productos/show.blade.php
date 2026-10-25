@@ -85,6 +85,20 @@
                                 <th>Actualizado:</th>
                                 <td> {{ $producto->updated_at->format('d/m/Y H:i') }} </td>
                             </tr>
+                            <tr>
+                                <th>Proveedor(es):</th>
+                                <td>
+                                    @if ($producto->proveedores->isNotEmpty())
+                                        <ul>
+                                            @foreach ($producto->proveedores as $proveedor)
+                                                <li>{{ $proveedor->rut }} | {{ $proveedor->nombre }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <span class="text-info">No hay proveedores asignados</span>
+                                    @endif
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -93,12 +107,14 @@
         <div class="d-flex gap-2">
             <x-back-button :route="route('empresas.categorias.show', $producto->categoria)" class="my-2"></x-back-button>
             <x-edit-button :route="route('categorias.productos.edit', $producto)" class="my-2"></x-edit-button>
+
             <form action="{{ route('categorias.productos.destroy', $producto) }}" method="post"
                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
                         @csrf
                         @method('DELETE')
                 <button type="submit" class="btn btn-danger my-2"><i class="bi bi-trash"></i></button>
             </form>
+            <a href="{{ route('productos.proveedores.asignarProveedor', $producto) }}" class="btn btn-outline-success btn-sm my-2">Asignar Proveedor</a>
         </div>
 
     </div>

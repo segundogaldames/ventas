@@ -45,6 +45,8 @@ Route::delete('empresas/{empresa}/usuarios/{user}', [EmpresaController::class, '
 Route::put('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore')->middleware('auth');
 Route::put('productos/{producto}/restore', [ProductoController::class, 'restore'])->name('productos.restore')->middleware('auth');
 Route::put('proveedores/{proveedor}/restore', [ProveedorController::class, 'restore'])->name('proveedores.restore')->middleware('auth');
+Route::get('productos/{producto}/proveedores', [ProductoController::class, 'asignarProveedor'])->name('productos.proveedores.asignarProveedor')->middleware('auth');
+Route::post('productos/{producto}/proveedores', [ProductoController::class, 'registrarProveedor'])->name('productos.proveedores.registrarProveedor')->middleware('auth');
 
 Route::resource('paises', PaisController::class)->names('paises')->parameters(['paises' => 'pais'])->middleware('auth');
 Route::resource('paises.provincias', ProvinciaController::class)->names('paises.provincias')->except(['index'])->shallow()->parameters(['paises' => 'pais', 'provincias' => 'provincia'])->middleware('auth');
