@@ -29,4 +29,14 @@ class Proveedor extends Model
     {
         return $this->hasMany(Compra::class);
     }
+
+    public function empresas()
+    {
+        return $this->belongsToMany(Empresa::class, 'empresa_proveedor');
+    }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'producto_proveedor');
+    }
 }

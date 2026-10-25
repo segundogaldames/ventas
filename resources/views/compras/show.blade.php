@@ -77,7 +77,7 @@
             <div class="card-title">
                 <h1 class="fs-3 m-3">
                     Detalles de la compra realizada el {{ $compra->fecha }}
-                    <a href="#" class="btn btn-outline-secondary">Agregar Productos</a>
+                    <a href="{{ route('compras.detalles.create', $compra) }}" class="btn btn-outline-secondary">Agregar Productos</a>
                 </h1>
             </div>
             <div class="card-body">

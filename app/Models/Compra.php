@@ -18,14 +18,14 @@ class Compra extends Model
         );
     }
 
-    //     public function calcularTotal()
-    //     {
-    //         // Suma el (cantidad * precio_unitario) de todos los detalles asociados
-    //         $nuevoTotal = $this->detalles()->sum(DB::raw('cantidad * precio_unitario'));
-    //
-    //         // Actualizamos el campo total de la compra
-    //         $this->update(['total' => $nuevoTotal]);
-    //     }
+    public function calcularTotal()
+    {
+        // Suma el (cantidad * precio_unitario) de todos los detalles asociados
+        $nuevoTotal = $this->compraDetalles()->sum(DB::raw('cantidad * precio_unitario'));
+
+        // Actualizamos el campo total de la compra
+        $this->update(['total' => $nuevoTotal]);
+    }
 
     public function empresa()
     {
@@ -40,5 +40,10 @@ class Compra extends Model
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
+    }
+
+    public function compraDetalles()
+    {
+        return $this->hasMany(CompraDetalle::class);
     }
 }

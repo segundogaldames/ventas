@@ -260,7 +260,7 @@
                     <a href="{{ route('compras.comprasEmpresa', $empresa) }}" class="text-decoration-none text-secondary">
                         <div class="info-box">
                             <span class="info-box-icon text-bg-secondary shadow-sm">
-                            <i class="bi bi-building-add"></i>
+                            <i class="bi bi-cart-check"></i>
                             </span>
 
                             <div class="info-box-content">

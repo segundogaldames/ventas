@@ -32,4 +32,14 @@ class Producto extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function proveedores()
+    {
+        return $this->belongsToMany(Proveedor::class, 'producto_proveedor');
+    }
+
+    public function compraDetalles()
+    {
+        return $this->hasMany(CompraDetalle::class);
+    }
 }
