@@ -37,7 +37,7 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
-INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1792717564);
+INSERT INTO `cache` VALUES ('laravel-cache-spatie.permission.cache','a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}',1792976847);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,6 +126,40 @@ INSERT INTO `ciudades` VALUES (1,'Santiago',1,'2026-09-27 01:18:29','2026-09-27 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `compra_detalles`
+--
+
+DROP TABLE IF EXISTS `compra_detalles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `compra_detalles` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cantidad` int NOT NULL,
+  `precio_unitario` int NOT NULL,
+  `subtotal` int DEFAULT NULL,
+  `compra_id` bigint unsigned NOT NULL,
+  `producto_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `compra_detalles_compra_id_foreign` (`compra_id`),
+  KEY `compra_detalles_producto_id_foreign` (`producto_id`),
+  CONSTRAINT `compra_detalles_compra_id_foreign` FOREIGN KEY (`compra_id`) REFERENCES `compras` (`id`),
+  CONSTRAINT `compra_detalles_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compra_detalles`
+--
+
+LOCK TABLES `compra_detalles` WRITE;
+/*!40000 ALTER TABLE `compra_detalles` DISABLE KEYS */;
+INSERT INTO `compra_detalles` VALUES (1,2,1990,3980,2,1,'2026-10-25 20:17:59','2026-10-25 20:45:46'),(2,5,4500,22500,2,2,'2026-10-25 20:26:57','2026-10-25 20:26:57');
+/*!40000 ALTER TABLE `compra_detalles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `compras`
 --
 
@@ -149,7 +183,7 @@ CREATE TABLE `compras` (
   CONSTRAINT `compras_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
   CONSTRAINT `compras_estado_id_foreign` FOREIGN KEY (`estado_id`) REFERENCES `estados` (`id`),
   CONSTRAINT `compras_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +192,7 @@ CREATE TABLE `compras` (
 
 LOCK TABLES `compras` WRITE;
 /*!40000 ALTER TABLE `compras` DISABLE KEYS */;
-INSERT INTO `compras` VALUES (2,'2026-10-21','1234',0,2,5,2,'2026-10-23 00:01:11','2026-10-23 00:01:11');
+INSERT INTO `compras` VALUES (2,'2026-10-21','1234',26480,2,4,2,'2026-10-23 00:01:11','2026-10-25 20:46:05');
 /*!40000 ALTER TABLE `compras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +214,7 @@ CREATE TABLE `empresa_proveedor` (
   KEY `empresa_proveedor_proveedor_id_foreign` (`proveedor_id`),
   CONSTRAINT `empresa_proveedor_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
   CONSTRAINT `empresa_proveedor_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +223,7 @@ CREATE TABLE `empresa_proveedor` (
 
 LOCK TABLES `empresa_proveedor` WRITE;
 /*!40000 ALTER TABLE `empresa_proveedor` DISABLE KEYS */;
-INSERT INTO `empresa_proveedor` VALUES (1,2,2,NULL,NULL);
+INSERT INTO `empresa_proveedor` VALUES (1,2,2,NULL,NULL),(2,2,1,NULL,NULL);
 /*!40000 ALTER TABLE `empresa_proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,7 +484,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +493,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8),(21,'2026_10_18_121342_create_proveedores_table',9),(22,'2026_10_18_133059_add_deleted_at_to_proveedores_table',10),(23,'2026_10_18_165757_create_empresa_proveedor_table',11),(24,'2026_10_19_220917_create_compras_table',12),(25,'2026_10_19_230109_add_num_factura_to_compras_table',13),(26,'2026_10_19_232032_create_modulos_table',14),(27,'2026_10_21_220751_create_estados_table',15),(29,'2026_10_22_113438_add_estado_to_compras_table',16);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_09_20_001112_create_permission_tables',1),(5,'2026_09_20_003932_create_paises_table',1),(6,'2026_09_20_004004_create_provincias_table',1),(7,'2026_09_20_004005_create_ciudades_table',1),(8,'2026_09_20_004024_create_empresa_tipos_table',1),(9,'2026_09_20_004025_create_empresas_table',1),(10,'2026_09_20_004048_create_impuestos_table',1),(11,'2026_09_20_005308_create_telefonos_table',1),(12,'2026_09_20_011806_create_monedas_table',2),(13,'2026_09_20_013448_create_empresa_user_table',3),(14,'2026_10_10_222416_add_deleted_at_to_users_table',4),(15,'2026_10_11_213925_create_categorias_table',5),(16,'2026_10_11_222131_add_empresa_id_to_categorias_table',6),(17,'2026_10_11_230818_create_productos_table',7),(18,'2026_10_15_232149_add_deleted_at_to_productos_table',8),(21,'2026_10_18_121342_create_proveedores_table',9),(22,'2026_10_18_133059_add_deleted_at_to_proveedores_table',10),(23,'2026_10_18_165757_create_empresa_proveedor_table',11),(24,'2026_10_19_220917_create_compras_table',12),(25,'2026_10_19_230109_add_num_factura_to_compras_table',13),(26,'2026_10_19_232032_create_modulos_table',14),(27,'2026_10_21_220751_create_estados_table',15),(29,'2026_10_22_113438_add_estado_to_compras_table',16),(31,'2026_10_24_221425_create_producto_proveedor_table',18),(32,'2026_10_24_220957_create_compra_detalles_table',19);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -650,6 +684,37 @@ LOCK TABLES `permissions` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `producto_proveedor`
+--
+
+DROP TABLE IF EXISTS `producto_proveedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producto_proveedor` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `producto_id` bigint unsigned NOT NULL,
+  `proveedor_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `producto_proveedor_producto_id_foreign` (`producto_id`),
+  KEY `producto_proveedor_proveedor_id_foreign` (`proveedor_id`),
+  CONSTRAINT `producto_proveedor_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`),
+  CONSTRAINT `producto_proveedor_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto_proveedor`
+--
+
+LOCK TABLES `producto_proveedor` WRITE;
+/*!40000 ALTER TABLE `producto_proveedor` DISABLE KEYS */;
+INSERT INTO `producto_proveedor` VALUES (1,2,1,NULL,NULL),(2,1,1,NULL,NULL),(3,1,2,NULL,NULL),(4,2,2,NULL,NULL);
+/*!40000 ALTER TABLE `producto_proveedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `productos`
 --
 
@@ -716,7 +781,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES (1,'55678900-2','Proveedor 1','proveedor1@proveedor1.cl','Maria de los Angeles 2',1,'2026-10-18 19:00:06','2026-10-18 20:01:45','2026-10-18 20:01:45'),(2,'44900456-6','Proveedor 2','proveedor2@proveedor2.com','camilo henriquez 999',1,'2026-10-18 19:02:53','2026-10-18 20:02:33',NULL);
+INSERT INTO `proveedores` VALUES (1,'55678900-2','Proveedor 1','proveedor1@proveedor1.cl','Maria de los Angeles 2',1,'2026-10-18 19:00:06','2026-10-25 19:58:46',NULL),(2,'44900456-6','Proveedor 2','proveedor2@proveedor2.com','camilo henriquez 999',1,'2026-10-18 19:02:53','2026-10-18 20:02:33',NULL);
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -829,7 +894,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('cNu6GFEEpg16U2IHpyRLfF0DnnxtLPsy8xIPiA9Y',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJnWkVDcGY2d1RsdVU0cGdyM2dkejJZbzhjc3BjV1B2V2xaZmVjNEVSIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jb21wcmFzXC8yXC9lbXByZXNhcyIsInJvdXRlIjoiY29tcHJhcy5jb21wcmFzRW1wcmVzYSJ9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjoxLCJhdXRoIjp7InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI6MTc5MjcxMDAzMH19',1792713680),('Kyfr0INWVxPLBz0RNjzjPpxlYE0rOZbPbgPRrpJT',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJwNW5WcFZhb0ptR0Nab0FPcjhVeEp2WEl4YW4yY1pOcGdSRjRpVjM3IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9tb2R1bG9zXC8xIiwicm91dGUiOiJtb2R1bG9zLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTI2MzExNjR9fQ==',1792634376);
+INSERT INTO `sessions` VALUES ('MnKoK9gWkWl5kCDT5pjODOVim16KTXcJ7uRSRsZK',1,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJabGU5cFNOdmcwSVZqVDlud0ExcWYxQmxWRUg5Mk9zR3p5TVQ1akhLIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jb21wcmFzXC8yIiwicm91dGUiOiJlbXByZXNhcy5jb21wcmFzLnNob3cifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI6MSwiYXV0aCI6eyJwYXNzd29yZF9jb25maXJtZWRfYXQiOjE3OTI5NTM1Njl9fQ==',1792975250);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -904,4 +969,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-22 21:59:57
+-- Dump completed on 2026-10-25 21:41:50
