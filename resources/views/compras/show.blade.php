@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <th>Fecha de Compra:</th>
-                        <td> {{ $compra->fecha }} </td>
+                        <td> {{ $compra->fecha->format('d/m/Y') }} </td>
                     </tr>
                     <tr>
                         <th>N° Factura o Boleta:</th>

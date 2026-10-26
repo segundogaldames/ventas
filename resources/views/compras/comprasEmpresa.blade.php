@@ -36,7 +36,7 @@
                     @foreach ($compras as $compra)
                         <tr>
                             <td> {{ $compra->id }} </td>
-                            <td> {{ $compra->fecha }} </td>
+                            <td> {{ $compra->fecha->format('d/m/Y') }} </td>
                             <td> {{ $compra->num_factura }} </td>
                             <td>$ {{ number_format($compra->total,0,',','.') }} </td>
                             <td>{{ $compra->estado->nombre }}</td>
