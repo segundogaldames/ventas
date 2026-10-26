@@ -100,7 +100,11 @@ class CompraController extends Controller
     public function destroy(Compra $compra)
     {
         //validar que no haya detalles de compras asociados
+        if ($compra->estado->nombre != 'En Proceso') {
+            return redirect()->route('empresas.compras.show', $compra)->with('error', 'Esta compra no se puede eliminar, ya que ha sido confirmada');
+        }
 
+        $compra->compraDetalles()->delete();
         $compra->delete();
 
         return redirect()->route('compras.comprasEmpresa', $compra->empresa)->with('success', 'La compra se ha eliminado correctamente');

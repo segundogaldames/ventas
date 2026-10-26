@@ -76,12 +76,42 @@
         <div class="card">
             <div class="card-title">
                 <h1 class="fs-3 m-3">
-                    Detalles de la compra realizada el {{ $compra->fecha }}
+                    Detalles de la compra realizada el {{ $compra->fecha->format('d/m/Y') }}
                     <a href="{{ route('compras.detalles.create', $compra) }}" class="btn btn-outline-secondary">Agregar Productos</a>
                 </h1>
             </div>
             <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha Registro</th>
+                            <th>Producto</th>
+                            <th>Precio Unitario</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($compra->compraDetalles as $detalle)
+                            <tr>
+                            <td> {{ $detalle->id }} </td>
+                            <td> {{ $detalle->created_at->format('d/m/Y H:i') }} </td>
+                            <td> {{ $detalle->producto->nombre }} </td>
+                            <td>$ {{ number_format($detalle->precio_unitario,0,',','.') }} </td>
+                            <td> {{ $detalle->cantidad }} </td>
+                            <td>$ {{ number_format($detalle->subtotal,0,',','.') }} </td>
+                            <td>
+                                @if ($compra->estado->nombre == 'En Proceso')
+                                    <x-edit-button :route="route('compras.detalles.edit', $detalle)" class="btn-sm"></i></x-edit-button>
 
+                                @endif
+                            </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

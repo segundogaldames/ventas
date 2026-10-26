@@ -1,18 +1,21 @@
 <div class="row">
-    <div class="col-md-4 mb-3">
-        <label for="producto_id" class="form-label">Productos</label>
-        <select name="producto_id" id="producto_id" class="form-control @error('producto_id') is-invalid @enderror">
-            <option value="">Seleccione...</option>
-            @foreach ($productos as $producto)
-                <option value="{{ $producto->id }}" {{ old('producto_id', $compraDetalle->producto_id ?? '') == $producto->id ? 'selected' : '' }}>{{ $producto->name }}</option>
-            @endforeach
-        </select>
-        @error('producto_id')
-            <span class="invalid-feedback">
-                {{ $message }}
-            </span>
-        @enderror
-    </div>
+    @if ($action == 'create')
+        <div class="col-md-4 mb-3">
+            <label for="producto_id" class="form-label">Productos</label>
+            <select name="producto_id" id="producto_id" class="form-control @error('producto_id') is-invalid @enderror">
+                <option value="">Seleccione...</option>
+                @foreach ($productos as $producto)
+                    <option value="{{ $producto->id }}" {{ old('producto_id', $compraDetalle->producto_id ?? '') == $producto->id ? 'selected' : '' }}>{{ $producto->nombre }}</option>
+                @endforeach
+            </select>
+            @error('producto_id')
+                <span class="invalid-feedback">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+
+    @endif
     <div class="col-md-4 mb-3">
         <label for="cantidad" class="form-label">Cantidad</label>
         <input type="text" name="cantidad" class="form-control @error('cantidad') is-invalid @else '' @enderror" id="cantidad"

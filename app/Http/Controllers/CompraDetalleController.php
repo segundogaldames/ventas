@@ -21,9 +21,10 @@ class CompraDetalleController extends Controller
      */
     public function create(Compra $compra)
     {
+        $action = 'create';
         $productos = $compra->proveedor->productos;
 
-        return view('compraDetalles.create', compact('productos', 'compra'));
+        return view('compraDetalles.create', compact('productos', 'compra', 'action'));
     }
 
     /**
@@ -41,7 +42,7 @@ class CompraDetalleController extends Controller
 
         $compra->calcularTotal();
 
-        return redirect()->route('empresas.compras.show', $compra->empresa)->with('success', 'El detalle de la compra se ha ingresado correctamente');
+        return redirect()->route('compras.comprasEmpresa', $compra->empresa)->with('success', 'El detalle de la compra se ha ingresado correctamente');
     }
 
     /**
@@ -55,30 +56,32 @@ class CompraDetalleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CompraDetalle $compraDetalle)
+    public function edit(CompraDetalle $detalle)
     {
-        return view('detalleCompras.edit', compact('compraDetalle'));
+        $action = 'edit';
+        return view('compraDetalles.edit', compact('detalle', 'action'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CompraDetalle $compraDetalle)
+    public function update(Request $request, CompraDetalle $detalle)
     {
+
         $validated = $request->validate([
             'cantidad' => ['required', 'numeric', 'min:1'],
             'precio_unitario' => ['required', 'numeric', 'min:0']
         ]);
 
-        if ($compraDetalle->compra->estado->nombre != 'En Proceso') {
-            return redirect()->route('empresas.compras.show', $compraDetalle->compra->empresa)->with('error', 'No se puede modificar este detalle de compra, ya que no está en proceso');
+        if ($detalle->compra->estado->nombre != 'En Proceso') {
+            return redirect()->route('empresas.compras.show', $detalle->compra->empresa)->with('error', 'No se puede modificar este detalle de compra, ya que no está en proceso');
         }
 
-        $compraDetalle->create($validated);
+        $detalle->update($validated);
 
-        $compraDetalle->compra->calcularTotal();
+        $detalle->compra->calcularTotal();
 
-        return redirect()->route('empresas.compras.show', $compraDetalle->compra->empresa)->with('success', 'El detalle de la compra se ha modificado correctamente');
+        return redirect()->route('empresas.compras.show', $detalle->compra->empresa)->with('success', 'El detalle de la compra se ha modificado correctamente');
     }
 
     /**

@@ -11,6 +11,10 @@ class Compra extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'fecha' => 'date', // o 'datetime'
+    ];
+
     protected function nombre(): Attribute
     {
         return Attribute::make(
