@@ -74,14 +74,14 @@ class CompraDetalleController extends Controller
         ]);
 
         if ($detalle->compra->estado->nombre != 'En Proceso') {
-            return redirect()->route('empresas.compras.show', $detalle->compra->empresa)->with('error', 'No se puede modificar este detalle de compra, ya que no está en proceso');
+            return redirect()->route('empresas.compras.show', $detalle->compra)->with('error', 'No se puede modificar este detalle de compra, ya que no está en proceso');
         }
 
         $detalle->update($validated);
 
         $detalle->compra->calcularTotal();
 
-        return redirect()->route('empresas.compras.show', $detalle->compra->empresa)->with('success', 'El detalle de la compra se ha modificado correctamente');
+        return redirect()->route('empresas.compras.show', $detalle->compra)->with('success', 'El detalle de la compra se ha modificado correctamente');
     }
 
     /**

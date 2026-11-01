@@ -23,10 +23,11 @@ class CompraController extends Controller
      */
     public function create(Empresa $empresa)
     {
+        $compra = new Compra();
         $proveedores = $empresa->proveedores;
         $action = 'create';
 
-        return view('compras.create', compact('proveedores', 'empresa', 'action'));
+        return view('compras.create', compact('proveedores', 'empresa', 'action', 'compra'));
     }
 
     /**
@@ -36,7 +37,7 @@ class CompraController extends Controller
     {
         $validated = $request->validate([
             'fecha' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today'],
-            'num_factura' => ['required', 'min:3'],
+            'num_factura' => ['required', 'min:3', 'unique:compras,num_factura'],
             'proveedor_id' => ['required', Rule::exists('empresa_proveedor', 'proveedor_id')->where(function ($query) use ($empresa) {
                 return $query->where('empresa_id', $empresa->id);
             }),]
@@ -82,7 +83,7 @@ class CompraController extends Controller
     {
         $validated = $request->validate([
             'fecha' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today'],
-            'num_factura' => ['required', 'min:3'],
+            'num_factura' => ['required', 'min:3', 'unique:compras,num_factura,' . $compra->id],
             'proveedor_id' => ['required', Rule::exists('empresa_proveedor', 'proveedor_id')->where(function ($query) use ($compra) {
                 return $query->where('empresa_id', $compra->empresa->id);
             }),],

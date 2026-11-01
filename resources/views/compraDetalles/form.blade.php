@@ -19,7 +19,7 @@
     <div class="col-md-4 mb-3">
         <label for="cantidad" class="form-label">Cantidad</label>
         <input type="text" name="cantidad" class="form-control @error('cantidad') is-invalid @else '' @enderror" id="cantidad"
-            value="{{ old('cantidad', $compraDetalle->cantidad ?? '') }}" placeholder="Cantidad">
+            value="{{ old('cantidad', $detalle->cantidad ?? '') }}" placeholder="Cantidad">
         @error('cantidad')
             <span class="invalid-feedback">
                 {{ $message }}
@@ -29,7 +29,7 @@
     <div class="col-md-4 mb-3">
         <label for="precio_unitario" class="form-label">Precio Unitario $</label>
         <input type="text" name="precio_unitario" class="form-control @error('precio_unitario') is-invalid @else '' @enderror" id="precio_unitario"
-            value="{{ old('precio_unitario', $compraDetalle->precio_unitario ?? '') }}" placeholder="Precio unitario">
+            value="{{ old('precio_unitario', $detalle->precio_unitario ?? '') }}" placeholder="Precio unitario">
         @error('precio_unitario')
             <span class="invalid-feedback">
                 {{ $message }}

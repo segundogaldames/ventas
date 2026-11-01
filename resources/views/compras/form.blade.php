@@ -1,7 +1,7 @@
 <div class="mb-3">
     <label for="fecha" class="form-label">Fecha de Compra</label>
     <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @else '' @enderror" id="fecha"
-        value="{{ old('fecha', $compra->fecha ?? '') }}" placeholder="Fecha de la compra">
+        value="{{ old('fecha', $compra->fecha?->format('Y-m-d') ?? date('Y-m-d')) }}" placeholder="Fecha de la compra">
     @error('fecha')
         <span class="invalid-feedback">
             {{ $message }}

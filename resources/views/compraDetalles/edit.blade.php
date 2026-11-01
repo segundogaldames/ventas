@@ -16,7 +16,7 @@
                     @csrf
                     @method('PUT')
                     @include('compraDetalles.form')
-                    <x-back-button :route="route('compras.comprasEmpresa', $detalle->compra)"></x-back-button>
+                    <x-back-button :route="route('empresas.compras.show', $detalle->compra)"></x-back-button>
                 </form>
             </div>
         </div>
