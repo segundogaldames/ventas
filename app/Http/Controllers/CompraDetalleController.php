@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Compra;
 use App\Models\CompraDetalle;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class CompraDetalleController extends Controller
@@ -39,6 +40,8 @@ class CompraDetalleController extends Controller
         ]);
 
         $compra->compraDetalles()->create($validated);
+
+        Producto::where('id', $validated['producto_id'])->increment('stock_disponible', $validated['cantidad']);
 
         $compra->calcularTotal();
 

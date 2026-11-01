@@ -12,7 +12,7 @@
         Empresa - Compras
         <a href="{{ route('empresas.compras.create', $empresa) }}" class="btn btn-outline-secondary">Nueva
             Compra</a>
-        <a href="{{ route('ciudades.empresas.show', $empresa) }}" class="btn btn-outline-primary">Volver</a>
+        <a href="{{ route('ciudades.empresas.show', $empresa) }}" class="btn btn-outline-primary">Volver a Empresa</a>
     </h1>
 @stop
 

@@ -6,6 +6,7 @@ use App\Models\Compra;
 use App\Models\DocumentoTipo;
 use App\Models\Empresa;
 use App\Models\Estado;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -108,6 +109,11 @@ class CompraController extends Controller
         //validar que no haya detalles de compras asociados
         if ($compra->estado->nombre != 'En Proceso') {
             return redirect()->route('empresas.compras.show', $compra)->with('error', 'Esta compra no se puede eliminar, ya que ha sido confirmada');
+        }
+
+        foreach ($compra->compraDetalles as $detalle) {
+            Producto::where('id', $detalle->producto_id)
+                ->decrement('stock_disponible', $detalle->cantidad);
         }
 
         $compra->compraDetalles()->delete();

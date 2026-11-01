@@ -12,6 +12,7 @@
         Empresa - Proveedores
         <a href="{{ route('empresas.proveedores.asignarProveedor', $empresa) }}" class="btn btn-outline-secondary">Nuevo
             Proveedor</a>
+        <a href="{{ route('ciudades.empresas.show', $empresa) }}" class="btn btn-primary">Volver a Empresa</a>
     </h1>
 @stop
 
