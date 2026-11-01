@@ -31,6 +31,11 @@ class Compra extends Model
         $this->update(['total' => $nuevoTotal]);
     }
 
+    public function documentoTipo()
+    {
+        return $this->belongsTo(DocumentoTipo::class);
+    }
+
     public function empresa()
     {
         return $this->belongsTo(Empresa::class);

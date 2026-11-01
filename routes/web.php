@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CompraDetalleController;
+use App\Http\Controllers\DocumentoTipoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EmpresaTipoController;
 use App\Http\Controllers\EstadoController;
@@ -65,3 +66,4 @@ Route::resource('compras.detalles', CompraDetalleController::class)->names('comp
 Route::resource('roles', RoleController::class)->names('roles')->middleware('auth');
 Route::resource('users', UserController::class)->names('users')->middleware('auth');
 Route::resource('modulos', ModuloController::class)->names('modulos')->middleware('auth');
+Route::resource('documentoTipos', DocumentoTipoController::class)->names('documentoTipos')->middleware('auth');

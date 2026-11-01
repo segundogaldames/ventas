@@ -835,6 +835,11 @@ return [
                     'icon' => 'bi bi-building-add'
                 ],
                 [
+                    'text' => 'Tipo Documentos',
+                    'route' => 'documentoTipos.index',
+                    'icon' => 'bi bi-receipt'
+                ],
+                [
                     'text' => 'Proveedores',
                     'route' => 'proveedores.index',
                     'icon' => 'bi bi-building-add'
