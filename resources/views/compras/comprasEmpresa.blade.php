@@ -26,8 +26,9 @@
                         <th class="col-1">Id</th>
                         <td class="col-2">Fecha</td>
                         <td class="col-2">N° de Factura o boleta</td>
+                        <td class="col-1">Tipo de Documento</td>
                         <td class="col-2">Total</td>
-                        <td class="col-2">Estado</td>
+                        <td class="col-1">Estado</td>
                         <td class="col-2">Proveedor</td>
                         <td class="col-1"></td>
                     </tr>
@@ -38,6 +39,7 @@
                             <td> {{ $compra->id }} </td>
                             <td> {{ $compra->fecha->format('d/m/Y') }} </td>
                             <td> {{ $compra->num_factura }} </td>
+                            <td> {{ $compra->documentoTipo?->nombre }} </td>
                             <td>$ {{ number_format($compra->total,0,',','.') }} </td>
                             <td>{{ $compra->estado->nombre }}</td>
                             <td>{{ $compra->proveedor->nombre }}</td>

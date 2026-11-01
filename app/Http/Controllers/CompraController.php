@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\DocumentoTipo;
 use App\Models\Empresa;
 use App\Models\Estado;
 use Illuminate\Http\Request;
@@ -25,9 +26,10 @@ class CompraController extends Controller
     {
         $compra = new Compra();
         $proveedores = $empresa->proveedores;
+        $documentoTipos = DocumentoTipo::orderBy('nombre')->get();
         $action = 'create';
 
-        return view('compras.create', compact('proveedores', 'empresa', 'action', 'compra'));
+        return view('compras.create', compact('proveedores', 'empresa', 'action', 'compra', 'documentoTipos'));
     }
 
     /**
@@ -38,6 +40,7 @@ class CompraController extends Controller
         $validated = $request->validate([
             'fecha' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today'],
             'num_factura' => ['required', 'min:3', 'unique:compras,num_factura'],
+            'documento_tipo_id' => ['required', 'exists:documento_tipos,id'],
             'proveedor_id' => ['required', Rule::exists('empresa_proveedor', 'proveedor_id')->where(function ($query) use ($empresa) {
                 return $query->where('empresa_id', $empresa->id);
             }),]
@@ -66,6 +69,7 @@ class CompraController extends Controller
     public function edit(Compra $compra)
     {
         $proveedores = $compra->empresa->proveedores;
+        $documentoTipos = DocumentoTipo::orderBy('nombre')->get();
 
         //validamos que haya detalle de compra antes de mostrar los estados
         $estados = Estado::whereHas('modulo', function ($query) {
@@ -73,7 +77,7 @@ class CompraController extends Controller
         })->get();
         $action = 'edit';
 
-        return view('compras.edit', compact('compra', 'proveedores', 'estados', 'action'));
+        return view('compras.edit', compact('compra', 'proveedores', 'estados', 'action', 'documentoTipos'));
     }
 
     /**
@@ -83,7 +87,8 @@ class CompraController extends Controller
     {
         $validated = $request->validate([
             'fecha' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today'],
-            'num_factura' => ['required', 'min:3', 'unique:compras,num_factura,' . $compra->id],
+            'num_factura' => ['required', 'min:3', Rule::unique('compras', 'num_factura')->ignore($compra->id)],
+            'documento_tipo_id' => ['required', 'exists:documento_tipos,id'],
             'proveedor_id' => ['required', Rule::exists('empresa_proveedor', 'proveedor_id')->where(function ($query) use ($compra) {
                 return $query->where('empresa_id', $compra->empresa->id);
             }),],

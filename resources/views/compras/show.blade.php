@@ -34,6 +34,10 @@
                         <td>{{ $compra->num_factura }}</td>
                     </tr>
                     <tr>
+                        <th>Tipo de Documento:</th>
+                        <td>{{ $compra->documentoTipo?->nombre }}</td>
+                    </tr>
+                    <tr>
                         <th>Total $:</th>
                         <td>$ {{ number_format($compra->total,0,',','.') }}</td>
                     </tr>

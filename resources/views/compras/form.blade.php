@@ -19,6 +19,20 @@
     @enderror
 </div>
 <div class="mb-3">
+    <label for="documento_tipo_id" class="form-label">Tipo de Documento</label>
+    <select name="documento_tipo_id" id="documento_tipo_id" class="form-control @error('documento_tipo_id') is-invalid @enderror">
+        <option value="">Seleccione...</option>
+        @foreach ($documentoTipos as $tipo)
+            <option value="{{ $tipo->id }}" {{ old('documento_tipo_id', $compra->documento_tipo_id ?? '') == $tipo->id ? 'selected' : '' }}>{{ $tipo->rut }} {{ $tipo->nombre }}</option>
+        @endforeach
+    </select>
+    @error('documento_tipo_id')
+        <span class="invalid-feedback">
+            {{ $message }}
+        </span>
+    @enderror
+</div>
+<div class="mb-3">
     <label for="proveedor_id" class="form-label">Proveedor</label>
     <select name="proveedor_id" id="proveedor_id" class="form-control @error('proveedor_id') is-invalid @enderror">
         <option value="">Seleccione...</option>
